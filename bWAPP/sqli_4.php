@@ -25,25 +25,24 @@ include("connect.php");
 function sqli($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = sqli_check_1($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = sqli_check_2($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -97,7 +96,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -123,8 +124,7 @@ function sqli($data)
     </form>
     <?php
 
-    if(isset($_REQUEST["title"]))
-    {
+    if(isset($_REQUEST["title"])) {
 
         $title = $_REQUEST["title"];
 
@@ -132,23 +132,18 @@ function sqli($data)
 
         $recordset = mysqli_query($link, $sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             //die("<font color=\"red\">Incorrect syntax detected!</font>");
-             die("Error: " . mysqli_error($link));
+            die("Error: " . mysqli_error($link));
 
         }
 
-        if(mysqli_num_rows($recordset) != 0)
-        {
+        if(mysqli_num_rows($recordset) != 0) {
 
             echo "The movie exists in our database!";
 
-        }
-
-        else
-        {
+        } else {
 
             echo "The movie does not exist in our database!";
 
@@ -158,7 +153,7 @@ function sqli($data)
 
     }
 
-    ?>
+?>
 </div>
 
 <div id="side">

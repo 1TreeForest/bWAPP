@@ -31,18 +31,14 @@ include("selections.php");
 <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Architects+Daughter">-->
 <?php
 
-if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-{
+if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-?>
+    ?>
 <link rel="stylesheet" type="text/css" href="http://<?php echo $_SERVER["HTTP_HOST"]?>/bWAPP/stylesheets/stylesheet.css" media="screen" />
 <?php
 
-}
-
-else
-{
-?>
+} else {
+    ?>
 <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
 <?php
 
@@ -54,18 +50,14 @@ else
 <!--<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>-->
 <?php
 
-if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-{
+if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-?>
+    ?>
 <script src="http://<?php echo $_SERVER["HTTP_HOST"]?>/bWAPP/js/html5.js"></script>
 <?php
 
-}
-
-else
-{
-?>
+} else {
+    ?>
 <script src="js/html5.js"></script>
 <?php
 
@@ -101,7 +93,9 @@ else
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -115,20 +109,16 @@ else
 
 <?php
 
-if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-{
+if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
     $session_id = session_id();
 
-?>
+    ?>
     <p>Click <a href="http://<?php echo $_SERVER["HTTP_HOST"]?>/bWAPP/portal.php">here</a> to go back to the portal.</p>
 <?php
 
-}
-
-else
-{
-?>
+} else {
+    ?>
     <p>Click <a href="portal.php">here</a> to go back to the portal.</p>
 <?php
 

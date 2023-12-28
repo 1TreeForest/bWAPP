@@ -31,27 +31,26 @@ function htmli($data)
 
     include("connect_i.php");
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = sqli_check_3($link, $data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = sqli_check_3($link, $data);
             // $data = xss_check_4($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = sqli_check_3($link, $data);
             // $data = xss_check_3($data);
             break;
 
-        default :
+        default:
 
             $data = sqli_check_3($link, $data);
             break;
@@ -62,28 +61,22 @@ function htmli($data)
 
 }
 
-if(isset($_POST["entry_add"]))
-{
+if(isset($_POST["entry_add"])) {
 
     $entry = htmli($_POST["entry"]);
     $owner = $_SESSION["login"];
 
-    if($entry == "")
-    {
+    if($entry == "") {
 
         $message =  "<font color=\"red\">Please enter some text...</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         $sql = "INSERT INTO blog (date, entry, owner) VALUES (now(),'" . $entry . "','" . $owner . "')";
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . $link->error . "<br /><br />");
 
@@ -96,20 +89,15 @@ if(isset($_POST["entry_add"]))
 
     }
 
-}
+} else {
 
-else
-{
-
-    if(isset($_POST["entry_delete"]))
-    {
+    if(isset($_POST["entry_delete"])) {
 
         $sql = "DELETE from blog WHERE owner = '" . $_SESSION["login"] . "'";
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . $link->error . "<br /><br />");
 
@@ -167,7 +155,9 @@ else
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -247,28 +237,23 @@ else
 
 $entry_all = isset($_POST["entry_all"]) ? 1 : 0;
 
-if($entry_all == false)
-{
+if($entry_all == false) {
 
-	$sql = "SELECT * FROM blog WHERE owner = '" . $_SESSION["login"] . "'";
+    $sql = "SELECT * FROM blog WHERE owner = '" . $_SESSION["login"] . "'";
 
-}
+} else {
 
-else
-{
-
-	$sql = "SELECT * FROM blog";
+    $sql = "SELECT * FROM blog";
 
 }
 
 $recordset = $link->query($sql);
 
-if(!$recordset)
-{
+if(!$recordset) {
 
     // die("Error: " . $link->connect_error . "<br /><br />");
 
-?>
+    ?>
         <tr height="50">
 
             <td colspan="4" width="665"><?php die("Error: " . $link->error);?></td>
@@ -284,13 +269,11 @@ if(!$recordset)
 
 }
 
-while($row = $recordset->fetch_object())
-{
+while($row = $recordset->fetch_object()) {
 
-    if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-    {
+    if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row->id; ?></td>
@@ -302,12 +285,9 @@ while($row = $recordset->fetch_object())
 
 <?php
 
-    }
+    } else {
 
-    else
-    {
-
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row->id; ?></td>

@@ -28,28 +28,26 @@ $message = "";
 function xmli($data)
 {
 
-    if(isset($_COOKIE["security_level"]))
-    {
+    if(isset($_COOKIE["security_level"])) {
 
-        switch($_COOKIE["security_level"])
-        {
+        switch($_COOKIE["security_level"]) {
 
-            case "0" :
+            case "0":
 
                 $data = no_check($data);
                 break;
 
-            case "1" :
+            case "1":
 
                 $data = xmli_check_1($data);
                 break;
 
-            case "2" :
+            case "2":
 
                 $data = xmli_check_1($data);
                 break;
 
-            default :
+            default:
 
                 $data = no_check($data);
                 break;
@@ -62,8 +60,7 @@ function xmli($data)
 
 }
 
-if(isset($_REQUEST["login"]) & isset($_REQUEST["password"]))
-{
+if(isset($_REQUEST["login"]) & isset($_REQUEST["password"])) {
 
     $login = $_REQUEST["login"];
     $login = xmli($login);
@@ -82,15 +79,11 @@ if(isset($_REQUEST["login"]) & isset($_REQUEST["password"]))
     // echo $result[0][0];
     // echo $result[0]->login;
 
-    if($result)
-    {
+    if($result) {
 
         $message =  "<p>Welcome <b>" . ucwords($result[0]->login) . "</b>, how are you today?</p><p>Your secret: <b>" . $result[0]->secret . "</b></p>";
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">Invalid credentials!</font>";
 
@@ -205,7 +198,9 @@ if(isset($_REQUEST["login"]) & isset($_REQUEST["password"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -236,7 +231,7 @@ if(isset($_REQUEST["login"]) & isset($_REQUEST["password"]))
 
     echo $message;
 
-    ?>
+?>
 
 </div>
 

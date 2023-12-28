@@ -23,64 +23,43 @@ include("admin/settings.php");
 
 $message = "";
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
-    if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-    {
+    if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
-        if(isset($_SESSION["captcha"]) && ($_POST["captcha_user"] == $_SESSION["captcha"]))
-        {
+        if(isset($_SESSION["captcha"]) && ($_POST["captcha_user"] == $_SESSION["captcha"])) {
 
-            if($_POST["login"] == $login && $_POST["password"] == $password)
-            {
+            if($_POST["login"] == $login && $_POST["password"] == $password) {
 
                 $message = "<font color=\"green\">Successful login!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $message = "<font color=\"red\">Invalid credentials! Did you forgot your password?</font>";
 
             }
 
-        }
-
-        else   
-        {
+        } else {
 
             $message = "<font color=\"red\">Incorrect CAPTCHA!</font>";
 
         }
 
-    }
+    } else {
 
-    else
-    {
+        if($_POST["captcha_user"] == $_SESSION["captcha"]) {
 
-        if($_POST["captcha_user"] == $_SESSION["captcha"])
-        {
-
-            if($_POST["login"] == $login && $_POST["password"] == $password)
-            {
+            if($_POST["login"] == $login && $_POST["password"] == $password) {
 
                 $message = "<font color=\"green\">Successful login!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $message = "<font color=\"red\">Invalid credentials! Did you forgot your password?</font>";
 
             }
 
-        }
-
-        else
-        {
+        } else {
 
             $message = "<font color=\"red\">Incorrect CAPTCHA!</font>";
 
@@ -133,7 +112,9 @@ if(isset($_POST["form"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

@@ -24,25 +24,21 @@ $file = "../crossdomain.xml";
 
 $handle = fopen($file, "w") or die("Cannot open file: " . $file);
 
-if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
     $data = "<?xml version=\"1.0\"?>\n";
-    $data.= "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n";
-    $data.= "<cross-domain-policy>\n";
-    $data.= "  <allow-access-from domain=\"itsecgames.com\" />\n";
-    $data.= "</cross-domain-policy>";
+    $data .= "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n";
+    $data .= "<cross-domain-policy>\n";
+    $data .= "  <allow-access-from domain=\"itsecgames.com\" />\n";
+    $data .= "</cross-domain-policy>";
 
-}
-
-else
-{
+} else {
 
     $data = "<?xml version=\"1.0\"?>\n";
-    $data.= "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n";
-    $data.= "<cross-domain-policy>\n";
-    $data.= "  <allow-access-from domain=\"*\" />\n";
-    $data.= "</cross-domain-policy>";
+    $data .= "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd\">\n";
+    $data .= "<cross-domain-policy>\n";
+    $data .= "  <allow-access-from domain=\"*\" />\n";
+    $data .= "</cross-domain-policy>";
 
 }
 
@@ -91,7 +87,9 @@ fwrite($handle, $data);
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

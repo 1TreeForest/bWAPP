@@ -27,25 +27,24 @@ $message = "";
 function sqli($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = sqli_check_1($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = sqli_check_2($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -99,7 +98,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -128,8 +129,7 @@ function sqli($data)
     <br />
 <?php
 
-    if(isset($_POST["form"]))
-    {
+    if(isset($_POST["form"])) {
 
         $login = $_POST["login"];
         $login = sqli($login);
@@ -143,29 +143,21 @@ function sqli($data)
 
         $recordset = mysqli_query($link, $sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . mysqli_error($link));
 
-        }
-
-        else
-        {
+        } else {
 
             $row = mysqli_fetch_array($recordset);
 
-            if($row["login"])
-            {
+            if($row["login"]) {
 
                 // $message = "<font color=\"green\">Welcome " . ucwords($row["login"]) . "...</font>";
                 $message =  "<p>Welcome <b>" . ucwords($row["login"]) . "</b>, how are you today?</p><p>Your secret: <b>" . ucwords($row["secret"]) . "</b></p>";
-                // $message = $row["login"];
+            // $message = $row["login"];
 
-            }
-
-            else
-            {
+            } else {
 
                 $message = "<font color=\"red\">Invalid credentials!</font>";
 

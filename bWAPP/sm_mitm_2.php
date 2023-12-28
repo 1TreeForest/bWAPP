@@ -25,15 +25,13 @@ include("admin/settings.php");
 
 $message = "";
 
-if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
     $message = "We currently have no cure for this bug. Try to configure SMTPS or IPSEC.";
 
 }
 
-if(isset($_POST["action"]))
-{
+if(isset($_POST["action"])) {
 
     $login = $_SESSION["login"];
 
@@ -47,8 +45,7 @@ if(isset($_POST["action"]))
 
     $recordset = $link->query($sql);
 
-    if(!$recordset)
-    {
+    if(!$recordset) {
 
         die("Error: " . $link->error);
 
@@ -61,16 +58,14 @@ if(isset($_POST["action"]))
     $row = $recordset->fetch_object();
 
     // If the user is present
-    if($row)
-    {
+    if($row) {
 
-        if($smtp_server != "")
-        {
+        if($smtp_server != "") {
 
-            ini_set( "SMTP", $smtp_server);
+            ini_set("SMTP", $smtp_server);
 
-        //Debugging
-        // $debug = "true";
+            //Debugging
+            // $debug = "true";
 
         }
 
@@ -83,24 +78,20 @@ if(isset($_POST["action"]))
         $sender = $smtp_sender;
 
         $content = "Hello " . ucwords($login) . ",\n\n";
-        $content.= "Your secret: " . $secret . "\n\n";
-        $content.= "Greets from bWAPP!";
+        $content .= "Your secret: " . $secret . "\n\n";
+        $content .= "Greets from bWAPP!";
 
         $status = @mail($email, $subject, $content, "From: $sender");
 
-        if($status != true)
-        {
+        if($status != true) {
 
             $message = "<font color=\"red\">An e-mail could not be sent...</font>";
 
-            // Debugging
-            // die("Error: mail was NOT send");
-            // echo "Mail was NOT send";
+        // Debugging
+        // die("Error: mail was NOT send");
+        // echo "Mail was NOT send";
 
-        }
-
-        else
-        {
+        } else {
 
             $message = "<font color=\"green\">An e-mail with your secret has been sent to " . $email . ".</font>";
 
@@ -153,7 +144,9 @@ if(isset($_POST["action"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -176,9 +169,9 @@ if(isset($_POST["action"]))
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 
 </div>
 

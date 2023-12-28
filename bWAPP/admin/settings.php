@@ -54,5 +54,3 @@ $evil_bee = 0;
 // These credentials are used on some PHP pages
 $login = "bee";
 $password = "bug";
-
-?>

@@ -24,15 +24,14 @@ include("functions_external.php");
 function sqli($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             // Not working with PDO
             // $data = sqlite_escape_string($data);
@@ -40,7 +39,7 @@ function sqli($data)
             $data = sqli_check_4($data);
             break;
 
-        case "2" :
+        case "2":
 
             // Not working with PDO
             // $data = sqlite_escape_string($data);
@@ -48,7 +47,7 @@ function sqli($data)
             $data = sqli_check_4($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -102,7 +101,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -128,8 +129,7 @@ function sqli($data)
     </form>
     <?php
 
-    if(isset($_REQUEST["title"]))
-    {
+    if(isset($_REQUEST["title"])) {
 
         $title = $_REQUEST["title"];
 
@@ -139,22 +139,17 @@ function sqli($data)
 
         $recordset = $db->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("<font color=\"red\">Incorrect syntax detected!</font>");
 
         }
 
-        if($recordset->fetchColumn() > 0)
-        {
+        if($recordset->fetchColumn() > 0) {
 
             echo "The movie exists in our database!";
 
-        }
-
-        else
-        {
+        } else {
 
             echo "The movie does not exist in our database!";
 
@@ -164,7 +159,7 @@ function sqli($data)
 
     }
 
-    ?>
+?>
 </div>
 
 <div id="side">

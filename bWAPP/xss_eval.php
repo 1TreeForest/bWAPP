@@ -23,62 +23,55 @@ include("admin/settings.php");
 
 $bugs = file("bugs.txt");
 
-if(isset($_POST["form_bug"]) && isset($_POST["bug"]))
-{
+if(isset($_POST["form_bug"]) && isset($_POST["bug"])) {
 
-            $key = $_POST["bug"];
-            $bug = explode(",", trim($bugs[$key]));
+    $key = $_POST["bug"];
+    $bug = explode(",", trim($bugs[$key]));
 
-            // Debugging
-            // print_r($bug);
+    // Debugging
+    // print_r($bug);
 
-            header("Location: " . $bug[1]);
+    header("Location: " . $bug[1]);
 
-            exit;
+    exit;
 
 }
 
-if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
-{
+if(isset($_POST["form_security_level"]) && isset($_POST["security_level"])) {
 
     $security_level_cookie = $_POST["security_level"];
 
-    switch($security_level_cookie)
-    {
+    switch($security_level_cookie) {
 
-        case "0" :
+        case "0":
 
             $security_level_cookie = "0";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level_cookie = "1";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level_cookie = "2";
             break;
 
-        default :
+        default:
 
             $security_level_cookie = "0";
             break;
 
     }
 
-    if($evil_bee == 1)
-    {
+    if($evil_bee == 1) {
 
-        setcookie("security_level", "666", time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", "666", time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
-    }
+    } else {
 
-    else
-    {
-
-        setcookie("security_level", $security_level_cookie, time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", $security_level_cookie, time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
     }
 
@@ -88,43 +81,38 @@ if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
 
 }
 
-if(isset($_COOKIE["security_level"]))
-{
+if(isset($_COOKIE["security_level"])) {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $security_level = "low";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level = "medium";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level = "high";
             break;
 
-        case "666" :
+        case "666":
 
             $security_level = "666";
             break;
 
-        default :
+        default:
 
             $security_level = "low";
             break;
 
     }
 
-}
-
-else
-{
+} else {
 
     $security_level = "not set";
 
@@ -133,20 +121,19 @@ else
 function xss($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = xss_check_3($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -200,7 +187,9 @@ function xss($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -215,23 +204,17 @@ function xss($data)
     <p>The current date on your computer is:</p>
     <?php
 
-    if(isset($_GET["date"]))
-    {
+    if(isset($_GET["date"])) {
 
-        if($_COOKIE["security_level"] == "2")
-        {
+        if($_COOKIE["security_level"] == "2") {
 
-            if($_GET["date"] != "Date()")
-            {
+            if($_GET["date"] != "Date()") {
 
                 echo "<p><font color=\"red\">Invalid input detected!</font></p>";
 
-            }
+            } else {
 
-            else
-            {
-
-    ?>
+                ?>
 
     <p>
 
@@ -247,12 +230,9 @@ function xss($data)
 
             }
 
-        }
+        } else {
 
-        else
-        {
-
-    ?>
+            ?>
 
     <p>
 
@@ -267,16 +247,13 @@ function xss($data)
 
         }
 
-    }
-
-    else
-    {
+    } else {
 
         echo "<p><font color=\"red\">Invalid input detected!</font></p>";
 
     }
 
-    ?>
+?>
 
 </div>
 

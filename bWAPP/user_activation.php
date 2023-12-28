@@ -20,77 +20,66 @@ include("connect_i.php");
 
 $message = "";
 
-if(isset($_GET["user"]) && isset($_GET["activation_code"]) )
-{
-    
-    $login = $_GET["user"];
-    $login = mysqli_real_escape_string($link, $login);    
-    
-    $activation_code = $_GET["activation_code"];
-    $activation_code = mysqli_real_escape_string($link, $activation_code);               
-                
-    $sql = "SELECT * FROM users WHERE login = '" . $login . "' AND BINARY activation_code = '" . $activation_code . "'";
-                
-    // Debugging
-    // echo $sql;    
+if(isset($_GET["user"]) && isset($_GET["activation_code"])) {
 
-    $recordset = $link->query($sql);             
-                             
-    if(!$recordset)
-    {
+    $login = $_GET["user"];
+    $login = mysqli_real_escape_string($link, $login);
+
+    $activation_code = $_GET["activation_code"];
+    $activation_code = mysqli_real_escape_string($link, $activation_code);
+
+    $sql = "SELECT * FROM users WHERE login = '" . $login . "' AND BINARY activation_code = '" . $activation_code . "'";
+
+    // Debugging
+    // echo $sql;
+
+    $recordset = $link->query($sql);
+
+    if(!$recordset) {
 
         die("Error: " . $link->error);
 
     }
-                
-    // Debugging                 
-    // echo "<br />Affected rows: ";                
-    // printf($link->affected_rows);
-                
-    $row = $recordset->fetch_object();   
-                                                                           
-    if($row)
-    {
 
-        // Debugging              
-        // echo "<br />Row: "; 
-        // print_r($row); 
-                    
+    // Debugging
+    // echo "<br />Affected rows: ";
+    // printf($link->affected_rows);
+
+    $row = $recordset->fetch_object();
+
+    if($row) {
+
+        // Debugging
+        // echo "<br />Row: ";
+        // print_r($row);
+
         $sql = "UPDATE users SET activation_code = NULL, activated = 1 WHERE login = '" . $login . "'";
 
         // Debugging
-        // echo $sql;      
+        // echo $sql;
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . $link->error);
 
         }
-                    
-        // Debugging                  
-        // echo "<br />Affected rows: ";                
+
+        // Debugging
+        // echo "<br />Affected rows: ";
         // printf($link->affected_rows);
 
         $message = "<font color=\"green\">User activated!</font>";
 
-    }
-                
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">User not or already activated!</font>";
 
     }
 
-}
+} else {
 
-else
-
-{
-    
     $message = "<font color=\"red\">Not a valid input!</font>";
 
 }
@@ -147,9 +136,9 @@ else
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?></p>
+?></p>
 
 </div>
     

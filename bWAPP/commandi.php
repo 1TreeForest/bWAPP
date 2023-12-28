@@ -24,25 +24,24 @@ include("selections.php");
 function commandi($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = commandi_check_1($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = commandi_check_2($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -96,7 +95,9 @@ function commandi($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -122,20 +123,15 @@ function commandi($data)
     </form>
     <?php
 
-    if(isset($_POST["target"]))
-    {
+    if(isset($_POST["target"])) {
 
         $target = $_POST["target"];
 
-        if($target == "")
-        {
+        if($target == "") {
 
             echo "<font color=\"red\">Enter a domain name...</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             echo "<p align=\"left\">" . shell_exec("nslookup  " . commandi($target)) . "</p>";
 
@@ -143,7 +139,7 @@ function commandi($data)
 
     }
 
-    ?>
+?>
 
 </div>
 

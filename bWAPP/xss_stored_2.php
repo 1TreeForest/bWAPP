@@ -23,62 +23,60 @@ include("selections.php");
 
 $message = "";
 
-if(isset($_REQUEST["genre"]))
-{
+if(isset($_REQUEST["genre"])) {
 
-$genre = $_REQUEST["genre"];
+    $genre = $_REQUEST["genre"];
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
-            setcookie("movie_genre", $genre, time()+3600, "/", "", false, false);
+            setcookie("movie_genre", $genre, time() + 3600, "/", "", false, false);
 
             break;
 
-        case "1" :
+        case "1":
 
             $genre = xss_check_3($genre);
 
-            setcookie("movie_genre", $genre, time()+3600, "/", "", false, false);
+            setcookie("movie_genre", $genre, time() + 3600, "/", "", false, false);
 
-            break;;
+            break;
+            ;
 
-        case "2" :
+        case "2":
 
-                switch($genre)
-                {
+            switch($genre) {
 
-                    case "action" :
+                case "action":
 
-                        $genre = "action";
-                        break;
+                    $genre = "action";
+                    break;
 
-                    case "horror" :
+                case "horror":
 
-                        $genre = "horror";
-                        break;
+                    $genre = "horror";
+                    break;
 
-                    case "sci-fi" :
+                case "sci-fi":
 
-                        $genre = "sci-fi";
-                        break;
+                    $genre = "sci-fi";
+                    break;
 
-                    default :
+                default:
 
-                        $genre = "unknown";
-                        break;
+                    $genre = "unknown";
+                    break;
 
-                }
+            }
 
-            setcookie("movie_genre", $genre, time()+3600, "/", "", false, false);
+            setcookie("movie_genre", $genre, time() + 3600, "/", "", false, false);
 
             break;
 
-        default :
+        default:
 
-            setcookie("movie_genre", $genre, time()+3600, "/", "", false, false);
+            setcookie("movie_genre", $genre, time() + 3600, "/", "", false, false);
 
             break;
 
@@ -131,7 +129,9 @@ $genre = $_REQUEST["genre"];
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

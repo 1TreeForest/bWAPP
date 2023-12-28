@@ -22,23 +22,22 @@ div#bug a {font-weight: bold; cursor: pointer;}
         <?php
 
           // Lists the options from the array 'bugs' (bugs.txt)
-          foreach ($bugs as $key => $value)
-          {
+          foreach ($bugs as $key => $value) {
 
-            $bug = explode(",", trim($value));
+              $bug = explode(",", trim($value));
 
-            // Debugging
-            // echo "key: " . $key;
-            // echo " value: " . $bug[0];
-            // echo " filename: " . $bug[1] . "<br />";
-            $selected = (mb_stristr($bug[1], basename($_SERVER["SCRIPT_NAME"]))!==false)? ' selected="selected"':'';
+              // Debugging
+              // echo "key: " . $key;
+              // echo " value: " . $bug[0];
+              // echo " filename: " . $bug[1] . "<br />";
+              $selected = (mb_stristr($bug[1], basename($_SERVER["SCRIPT_NAME"])) !== false) ? ' selected="selected"' : '';
 
-            echo "
+              echo "
           <option title='$bug[1]' value='$key' $selected>$bug[0]</option>";
 
           }
 
-        ?>
+?>
 
 
       </select>

@@ -24,28 +24,28 @@ include("selections.php");
 function xss($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = xss_check_4($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = xss_check_3($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
-            break;;
+            break;
+            ;
 
     }
 
@@ -96,7 +96,9 @@ function xss($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -125,21 +127,16 @@ function xss($data)
     <br />
     <?php
 
-    if(isset($_POST["firstname"]) && isset($_POST["lastname"]))
-    {
+    if(isset($_POST["firstname"]) && isset($_POST["lastname"])) {
 
         $firstname = $_POST["firstname"];
         $lastname = $_POST["lastname"];
 
-        if($firstname == "" or $lastname == "")
-        {
+        if($firstname == "" or $lastname == "") {
 
             echo "<font color=\"red\">Please enter both fields...</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             echo "Welcome " . xss($firstname) . " " . xss($lastname);
 
@@ -147,7 +144,7 @@ function xss($data)
 
     }
 
-    ?>
+?>
 
 </div>
 

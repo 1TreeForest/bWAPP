@@ -25,8 +25,7 @@ include("connect.php");
 // Debugging
 // echo print_r($_SESSION);
 
-if(isset($_REQUEST["action"]) && $_REQUEST["action"] == "stop")
-{
+if(isset($_REQUEST["action"]) && $_REQUEST["action"] == "stop") {
 
     $_SESSION["manual_interv"] = 0;
 
@@ -34,40 +33,35 @@ if(isset($_REQUEST["action"]) && $_REQUEST["action"] == "stop")
 
 }
 
-if(!(isset($_SESSION["manual_interv"])) || $_SESSION["manual_interv"] != 1)
-{
+if(!(isset($_SESSION["manual_interv"])) || $_SESSION["manual_interv"] != 1) {
 
     header("Location: manual_interv.php");
 
     exit;
 
-}
-
-else
-{
+} else {
 
     function sqli($data)
     {
 
-        switch($_COOKIE["security_level"])
-        {
+        switch($_COOKIE["security_level"]) {
 
-            case "0" :
+            case "0":
 
                 $data = no_check($data);
                 break;
 
-            case "1" :
+            case "1":
 
                 $data = sqli_check_1($data);
                 break;
 
-            case "2" :
+            case "2":
 
                 $data = sqli_check_2($data);
                 break;
 
-            default :
+            default:
 
                 $data = no_check($data);
                 break;
@@ -78,7 +72,7 @@ else
 
     }
 
-?>
+    ?>
 <!DOCTYPE html>
 <html>
 
@@ -121,7 +115,9 @@ else
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -173,8 +169,7 @@ else
         </tr>
 <?php
 
-if(isset($_GET["title"]))
-{
+if(isset($_GET["title"])) {
 
     $title = $_GET["title"];
 
@@ -182,12 +177,11 @@ if(isset($_GET["title"]))
 
     $recordset = mysqli_query($link, $sql);
 
-    if(!$recordset)
-    {
+    if(!$recordset) {
 
         // die("Error: " . mysqli_error());
 
-?>
+        ?>
 
         <tr height="50">
 
@@ -204,15 +198,13 @@ if(isset($_GET["title"]))
 
     }
 
-    if(mysqli_num_rows($recordset) != 0)
-    {
+    if(mysqli_num_rows($recordset) != 0) {
 
-        while($row = mysqli_fetch_array($recordset))
-        {
+        while($row = mysqli_fetch_array($recordset)) {
 
             // print_r($row);
 
-?>
+            ?>
 
         <tr height="30">
 
@@ -227,12 +219,9 @@ if(isset($_GET["title"]))
 
         }
 
-    }
+    } else {
 
-    else
-    {
-
-?>
+        ?>
 
         <tr height="30">
 
@@ -251,12 +240,9 @@ if(isset($_GET["title"]))
 
     mysqli_close($link);
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
 
         <tr height="30">
 
@@ -273,7 +259,7 @@ else
 
 }
 
-?>
+    ?>
 
     </table>
 

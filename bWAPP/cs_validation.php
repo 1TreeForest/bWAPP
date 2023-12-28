@@ -28,8 +28,7 @@ $message = "";
 function check_password($string)
 {
 
-    if(preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/", $string) == false)
-    {
+    if(preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/", $string) == false) {
 
         return false;
 
@@ -40,13 +39,12 @@ function check_password($string)
 }
 
 // Checks the input fields
-function check_input($password_new,$password_conf)
+function check_input($password_new, $password_conf)
 {
 
-$error = "";
+    $error = "";
 
-    if($password_new == "")
-    {
+    if($password_new == "") {
 
         $error = "<font color=\"red\">Please enter a new password...</font>";
 
@@ -54,8 +52,7 @@ $error = "";
 
     }
 
-    if($password_new != $password_conf)
-    {
+    if($password_new != $password_conf) {
 
         $error = "<font color=\"red\">The passwords don't match!</font>";
 
@@ -63,8 +60,7 @@ $error = "";
 
     }
 
-    if(!check_password($password_new) && $_COOKIE["security_level"] == "2")
-    {
+    if(!check_password($password_new) && $_COOKIE["security_level"] == "2") {
 
         $error = "<font color=\"red\">The new password is not valid!<br />Password policy: minimum 6 characters containing at least one uppercase letter, lowercase letter and number.";
 
@@ -72,12 +68,11 @@ $error = "";
 
     }
 
-return $error;
+    return $error;
 
 }
 
-if(isset($_POST["action"]))
-{
+if(isset($_POST["action"])) {
 
     $password_new = $_REQUEST["password_new"];
     $password_conf = $_REQUEST["password_conf"];
@@ -87,8 +82,7 @@ if(isset($_POST["action"]))
     // Debugging
     // echo "I was here!";
 
-    if(!$message)
-    {
+    if(!$message) {
 
         $login = $_SESSION["login"];
 
@@ -106,8 +100,7 @@ if(isset($_POST["action"]))
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . $link->error);
 
@@ -119,8 +112,7 @@ if(isset($_POST["action"]))
 
         $row = $recordset->fetch_object();
 
-        if($row)
-        {
+        if($row) {
 
             // Debugging
             // echo "<br />Row: ";
@@ -133,8 +125,7 @@ if(isset($_POST["action"]))
 
             $recordset = $link->query($sql);
 
-            if(!$recordset)
-            {
+            if(!$recordset) {
 
                 die("Error: " . $link->error);
 
@@ -146,10 +137,7 @@ if(isset($_POST["action"]))
 
             $message = "<font color=\"green\">The password has been changed!</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             $message = "<font color=\"red\">The current password is not valid!</font>";
 
@@ -252,7 +240,9 @@ function check_form(form)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -264,23 +254,21 @@ function check_form(form)
 
     <h1>Client-Side Validation (Password)</h1>
 
-    <p>Please change your password <b><?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></b>.</p>
+    <p>Please change your password <b><?php if(isset($_SESSION["login"])) {
+        echo ucwords($_SESSION["login"]);
+    }?></b>.</p>
 
 <?php
 
-if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2") {
 
-?>
+    ?>
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST" onsubmit="return check_form(this);">
 <?php
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
 <?php
 
@@ -311,7 +299,7 @@ else
 
     $link->close();
 
-    ?>
+?>
 </div>
 
 <div id="side">

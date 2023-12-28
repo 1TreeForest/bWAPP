@@ -63,7 +63,9 @@ include("selections.php");
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -79,25 +81,23 @@ include("selections.php");
 
 <?php
 
-if(isset($_REQUEST["message"]))
-{
+if(isset($_REQUEST["message"])) {
 
     // If the security level is not MEDIUM or HIGH
-    if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-    {
+    if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-?>
-    <p><i><?php @eval ("echo " . $_REQUEST["message"] . ";");?></i></p>
+        ?>
+    <p><i><?php @eval("echo " . $_REQUEST["message"] . ";");?></i></p>
 
 <?php
 
     }
 
     // If the security level is MEDIUM or HIGH
-    else
-    {
-?>
-    <p><i><?php echo htmlspecialchars($_REQUEST["message"], ENT_QUOTES, "UTF-8");;?></i></p>
+    else {
+        ?>
+    <p><i><?php echo htmlspecialchars($_REQUEST["message"], ENT_QUOTES, "UTF-8");
+        ;?></i></p>
 
 <?php
 

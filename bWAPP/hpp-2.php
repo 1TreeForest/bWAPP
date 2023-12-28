@@ -24,18 +24,14 @@ include("selections.php");
 
 $message = "";
 
-if(isset($_GET["name"]) and $_GET["name"] != "")
-{
+if(isset($_GET["name"]) and $_GET["name"] != "") {
 
     $name = $_GET["name"];
 
     $message = "<p>Hello " . ucwords(xss_check_3($name)) . ", please vote for your favorite movie.</p>";
-    $message.= "<p>Remember, Tony Stark wants to win every time...</p>";
+    $message .= "<p>Remember, Tony Stark wants to win every time...</p>";
 
-}
-
-else
-{
+} else {
 
     header("Location: hpp-1.php");
 
@@ -46,25 +42,24 @@ else
 function hpp($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = urlencode($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = urlencode($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -118,7 +113,9 @@ function hpp($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -146,14 +143,13 @@ function hpp($data)
 
     $sql = "SELECT * FROM movies";
 
-    $recordset = mysqli_query($link, $sql);
+$recordset = mysqli_query($link, $sql);
 
-    if(!$recordset)
-    {
+if(!$recordset) {
 
-        // die("Error: " . mysqli_error());
+    // die("Error: " . mysqli_error());
 
-?>
+    ?>
 
         <tr height="50">
 
@@ -168,17 +164,15 @@ function hpp($data)
         </tr>
 <?php
 
-    }
+}
 
-    if(mysqli_num_rows($recordset) != 0)
-    {
+if(mysqli_num_rows($recordset) != 0) {
 
-        while($row = mysqli_fetch_array($recordset))
-        {
+    while($row = mysqli_fetch_array($recordset)) {
 
-            // print_r($row);
+        // print_r($row);
 
-?>
+        ?>
 
         <tr height="30">
 
@@ -191,11 +185,11 @@ function hpp($data)
         </tr>
 <?php
 
-        }
-
     }
 
-    mysqli_close($link);
+}
+
+mysqli_close($link);
 
 ?>
 

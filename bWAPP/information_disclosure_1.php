@@ -22,35 +22,33 @@ include("selections.php");
 
 $message = "";
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
         phpinfo();
         break;
 
-    case "1" :
+    case "1":
 
         $message = "There's nothing to disclose!";
         break;
 
-    case "2" :
+    case "2":
 
         $message = "There's nothing to disclose!";
         break;
 
-    default :
+    default:
 
         phpinfo();
         break;
 
 }
 
-if($message != "")
-{
+if($message != "") {
 
-?>
+    ?>
 
 <!DOCTYPE html>
 <html>
@@ -94,7 +92,9 @@ if($message != "")
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

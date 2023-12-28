@@ -27,25 +27,24 @@ include("connect.php");
 function sqli($data)
 {
 
-    switch ($_COOKIE["security_level"])
-    {
+    switch ($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = sqli_check_1($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = sqli_check_2($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -54,8 +53,7 @@ function sqli($data)
     return $data;
 }
 
-if(!empty($_GET["title"]))
-{
+if(!empty($_GET["title"])) {
 
     // Retrieves the movie title
     $title = $_GET["title"];
@@ -67,29 +65,21 @@ if(!empty($_GET["title"]))
     $recordset = mysqli_query($link, $sql);
 
     // Fetches the result
-    if(mysqli_num_rows($recordset) != 0)
-    {
+    if(mysqli_num_rows($recordset) != 0) {
 
-        while($row = mysqli_fetch_array($recordset))
-        {
+        while($row = mysqli_fetch_array($recordset)) {
 
             $movies[] = $row;
 
         }
 
-    }
-
-    else
-    {
+    } else {
 
         $movies = array();
 
     }
 
-}
-
-else
-{
+} else {
 
     $movies = array();
 
@@ -99,5 +89,3 @@ header("Content-Type: text/json; charset=utf-8");
 
 // Encodes the result to JSON
 echo json_encode($movies);
-
-?>

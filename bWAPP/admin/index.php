@@ -18,43 +18,38 @@ bWAPP is licensed under a Creative Commons Attribution-NonCommercial-NoDerivativ
 
 include("settings.php");
 
-if(isset($_COOKIE["security_level"]))
-{
+if(isset($_COOKIE["security_level"])) {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $security_level = "low";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level = "medium";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level = "high";
             break;
 
-        case "666" :
+        case "666":
 
             $security_level = "666";
             break;
 
-        default :
+        default:
 
             $security_level = "low";
             break;
 
     }
 
-}
-
-else
-{
+} else {
 
     $security_level = "not set";
 

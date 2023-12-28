@@ -24,10 +24,9 @@ $login = $_SESSION["login"];
 
 $sql = "SELECT * FROM users WHERE login = '" . $login . "'";
 
-$recordset = $link->query($sql);             
+$recordset = $link->query($sql);
 
-if(!$recordset)
-{
+if(!$recordset) {
 
     die("Error: " . $link->error);
 
@@ -37,15 +36,12 @@ $row = $recordset->fetch_object();
 
 header("Content-Type: text/plain");
 
-if($row)
-{
+if($row) {
 
     $secret = $row->secret;
 
-    echo "Your secret: " . $secret;          
+    echo "Your secret: " . $secret;
 
 }
 
 $link->close();
-
-?>

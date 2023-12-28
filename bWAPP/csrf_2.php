@@ -20,37 +20,28 @@ include("security.php");
 include("security_level_check.php");
 include("selections.php");
 
-if(isset($_GET["amount"]))
-{
+if(isset($_GET["amount"])) {
 
-    if(($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2"))
-    {
+    if(($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")) {
 
         $_SESSION["amount"] = $_SESSION["amount"] - $_GET["amount"];
 
-    }
+    } elseif(isset($_GET["action"]) && isset($_GET["token"]) && isset($_SESSION["token"])) {
 
-    else
+        if(($_GET["token"] == $_SESSION["token"]) && ($_GET["action"]) == "transfer") {
 
-        if(isset($_GET["action"]) && isset($_GET["token"]) && isset($_SESSION["token"]))
-        {
-
-            if(($_GET["token"] == $_SESSION["token"]) && ($_GET["action"]) == "transfer")
-            {
-
-                $_SESSION["amount"] = $_SESSION["amount"] - $_GET["amount"];
-
-            }
+            $_SESSION["amount"] = $_SESSION["amount"] - $_GET["amount"];
 
         }
+
+    }
 
 }
 
 // A random token is generated when the security level is HIGH
-if($_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "2") {
 
-    $token = sha1(uniqid(mt_rand(0,100000)));
+    $token = sha1(uniqid(mt_rand(0, 100000)));
     $_SESSION["token"] = $token;
 
 }
@@ -98,7 +89,9 @@ if($_COOKIE["security_level"] == "2")
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -122,10 +115,9 @@ if($_COOKIE["security_level"] == "2")
 
 <?php
 
-if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
-?>
+    ?>
         <input type="hidden" id="token" name="token" value="<?php echo $_SESSION["token"]?>">
 
 <?php

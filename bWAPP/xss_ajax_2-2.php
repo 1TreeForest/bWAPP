@@ -21,8 +21,7 @@ include("security.php");
 include("security_level_check.php");
 include("functions_external.php");
 
-if(isset($_GET["title"]))
-{
+if(isset($_GET["title"])) {
 
     // Creates the movie table
     $movies = array("CAPTAIN AMERICA", "IRON MAN", "SPIDER-MAN", "THE INCREDIBLE HULK", "THE WOLVERINE", "THOR", "X-MEN");
@@ -30,16 +29,14 @@ if(isset($_GET["title"]))
     // Retrieves the movie title
     $title = $_GET["title"];
 
-    if($_COOKIE["security_level"] == "2")
-    {
-        
+    if($_COOKIE["security_level"] == "2") {
+
         // Generates the JSON output
         header("Content-Type: text/json; charset=utf-8");
-        
-       // Generates the output depending on the movie title received from the client
-        if(in_array(strtoupper($title), $movies))
-        {
-       
+
+        // Generates the output depending on the movie title received from the client
+        if(in_array(strtoupper($title), $movies)) {
+
             // Creates the response array
             $movies = array(
                 "movies" => array(
@@ -49,10 +46,7 @@ if(isset($_GET["title"]))
                 )
             );
 
-        }
-
-        else if(trim($title) == "")       
-        {
+        } elseif(trim($title) == "") {
 
             // Creates the response array
             $movies = array(
@@ -63,10 +57,7 @@ if(isset($_GET["title"]))
                 )
             );
 
-        }
-
-        else        
-        {
+        } else {
 
             // Creates the response array
             $movies = array(
@@ -81,15 +72,11 @@ if(isset($_GET["title"]))
 
         // Returns the JSON representation
         // This function is safe
-        echo json_encode($movies); 
+        echo json_encode($movies);
 
-    }
+    } else {
 
-    else      
-    {
-
-        if($_COOKIE["security_level"] == "1")
-        {
+        if($_COOKIE["security_level"] == "1") {
 
             // Generates the JSON output
             header("Content-Type: text/json; charset=utf-8");
@@ -97,22 +84,20 @@ if(isset($_GET["title"]))
         }
 
         // Generates the output depending on the movie title received from the client
-        if(in_array(strtoupper($title), $movies))
+        if(in_array(strtoupper($title), $movies)) {
             echo '{"movies":[{"response":"Yes! We have that movie..."}]}';
-        else if(trim($title) == "")
+        } elseif(trim($title) == "") {
             echo '{"movies":[{"response":"HINT: our master really loves Marvel movies :)"}]}';
-         else
+        } else {
             echo '{"movies":[{"response":"' . $title . '??? Sorry, we don\'t have that movie :("}]}';
+        }
 
     }
 
-}
+} else {
 
-else 
-{
-    
     echo "<font color=\"red\">Try harder :p</font>";
-    
+
 }
 
 // Multiple entries
@@ -128,5 +113,3 @@ $movies = array(
     )
 );
 */
-
-?>

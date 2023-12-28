@@ -23,39 +23,29 @@ include("connect_i.php");
 
 $message = "";
 
-if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQUEST["password_conf"]))
-{
+if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQUEST["password_conf"])) {
 
     $password_new = $_REQUEST["password_new"];
     $password_conf = $_REQUEST["password_conf"];
 
-    if($password_new == "")
-    {
+    if($password_new == "") {
 
         $message = "<font color=\"red\">Please enter a new password...</font>";
 
-    }
+    } else {
 
-    else
-    {
-
-        if($password_new != $password_conf)
-        {
+        if($password_new != $password_conf) {
 
             $message = "<font color=\"red\">The passwords don't match!</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             $login = $_SESSION["login"];
 
             $password_new = mysqli_real_escape_string($link, $password_new);
             $password_new = hash("sha1", $password_new, false);
 
-            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-            {
+            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
                 $sql = "UPDATE users SET password = '" . $password_new . "' WHERE login = '" . $login . "'";
 
@@ -64,8 +54,7 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
                 $recordset = $link->query($sql);
 
-                if(!$recordset)
-                {
+                if(!$recordset) {
 
                     die("Connect Error: " . $link->error);
 
@@ -73,13 +62,9 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
                 $message = "<font color=\"green\">The password has been changed!</font>";
 
-            }
+            } else {
 
-            else
-            {
-
-                if(isset($_REQUEST["password_curr"]))
-                {
+                if(isset($_REQUEST["password_curr"])) {
 
                     $password_curr = $_REQUEST["password_curr"];
                     $password_curr = mysqli_real_escape_string($link, $password_curr);
@@ -92,8 +77,7 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Connect Error: " . $link->error);
 
@@ -105,8 +89,7 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
                     $row = $recordset->fetch_object();
 
-                    if($row)
-                    {
+                    if($row) {
 
                         // Debugging
                         // echo "<br />Row: ";
@@ -119,8 +102,7 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
                         $recordset = $link->query($sql);
 
-                        if(!$recordset)
-                        {
+                        if(!$recordset) {
 
                             die("Connect Error: " . $link->error);
 
@@ -132,10 +114,7 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
                         $message = "<font color=\"green\">The password has been changed!</font>";
 
-                    }
-
-                    else
-                    {
+                    } else {
 
                         $message = "<font color=\"red\">The current password is not valid!</font>";
 
@@ -194,7 +173,9 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -212,10 +193,9 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
 <?php
 
-        if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-        {
+        if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
-?>
+            ?>
         <p><label for="password_curr">Current password:</label><br />
         <input type="password" id="password_curr" name="password_curr"></p>
 
@@ -239,9 +219,9 @@ if(isset($_REQUEST["action"]) && isset($_REQUEST["password_new"]) && isset($_REQ
 
             echo $message;
 
-            $link->close();
+$link->close();
 
-    ?>
+?>
 
 </div>
 

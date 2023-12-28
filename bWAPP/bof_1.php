@@ -24,25 +24,24 @@ include("functions_external.php");
 function commandi($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = commandi_check_3($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = commandi_check_2($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = commandi_check_2($data);
             break;
 
-        default :
+        default:
 
             $data = commandi_check_3($data);
             break;
@@ -96,7 +95,9 @@ function commandi($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -122,36 +123,28 @@ function commandi($data)
     </form>
     <?php
 
-    if(isset($_POST["title"]))
-    {
+    if(isset($_POST["title"])) {
 
         $title = $_POST["title"];
-	$title = commandi($title);
+        $title = commandi($title);
 
-        if($title == "")
-        {
+        if($title == "") {
 
             echo "<p><font color=\"red\">Please enter a title...</font></p>";
 
-        }
-
-        else
-        {
+        } else {
 
             echo shell_exec("./apps/movie_search " . $title);
 
         }
 
-    }
-
-    else
-    {
+    } else {
 
         echo "<p>HINT: \\x90*354 + \\x8f\\x92\\x04\\x08 + [payload]</p>";
         echo "<p>Thanks to David Bloom (@philophobia78) for developing the C++ BOF application!</p>";
 
     }
-    ?>
+?>
 
 </div>
 

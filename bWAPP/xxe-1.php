@@ -63,7 +63,9 @@ include("selections.php");
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -94,7 +96,9 @@ include("selections.php");
             }
             xmlHttp.open("POST","xxe-2.php",true);
             xmlHttp.setRequestHeader("Content-type","text/xml; charset=UTF-8");
-            xmlHttp.send("<reset><login><?php if(isset($_SESSION["login"])){echo $_SESSION["login"];}?></login><secret>Any bugs?</secret></reset>");
+            xmlHttp.send("<reset><login><?php if(isset($_SESSION["login"])) {
+                echo $_SESSION["login"];
+            }?></login><secret>Any bugs?</secret></reset>");
         }
 
     </script>

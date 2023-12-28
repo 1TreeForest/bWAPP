@@ -25,17 +25,16 @@ $message = "";
 $file = "robots.txt";
 $catch = false;
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
         $color_1 = "";
         $color_2 = "";
 
         break;
 
-    case "1" :
+    case "1":
 
         $color_1 = "red";
         $color_2 = "green";
@@ -44,7 +43,7 @@ switch($_COOKIE["security_level"])
 
         break;
 
-    case "2" :
+    case "2":
 
         $color_1 = "red";
         $color_2 = "green";
@@ -53,7 +52,7 @@ switch($_COOKIE["security_level"])
 
         break;
 
-    default :
+    default:
 
         $color_1 = "";
         $color_2 = "";
@@ -103,7 +102,9 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -122,44 +123,38 @@ switch($_COOKIE["security_level"])
 <?php
 
 // Checks whether a file or directory exists
-if(is_file($file))
-{
+if(is_file($file)) {
 
     $banned = array("admin", "documents", "passwords");
 
     // Opens the file
     $fp = fopen($file, "r") or die("Couldn't open $file.");
 
-    while(!feof($fp))
-    {
+    while(!feof($fp)) {
 
         // Reads 1 line from the file
-        $line = fgets($fp,1024);
+        $line = fgets($fp, 1024);
 
         // Checks if a banned word is present in the current line
-        foreach($banned as $str)
-        {
+        foreach($banned as $str) {
 
-            if(strpos($line, $str) !== false)
-            {
+            if(strpos($line, $str) !== false) {
 
-               $catch = true;
+                $catch = true;
 
             }
 
         }
 
         // If a banned word is present then the line is written with color 1
-        if($catch == true)
-        {
+        if($catch == true) {
 
             echo "<font color=\"" . $color_1 . "\">" . $line . "</font><br />";
 
         }
 
         // If a banned word is not present then the line is written with color 2
-        else
-        {
+        else {
 
             echo "<font color=\"" . $color_2 . "\">" . $line . "</font><br />";
 

@@ -20,8 +20,7 @@ include("security.php");
 include("security_level_check.php");
 include("selections.php");
 
-  if(isset($_POST["form_bug"]) && isset($_POST["bug"]))
-  {
+if(isset($_POST["form_bug"]) && isset($_POST["bug"])) {
 
     $key = $_POST["bug"];
     $bug = explode(",", trim($bugs[$key]));
@@ -33,7 +32,7 @@ include("selections.php");
 
     exit;
 
-  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -78,7 +77,9 @@ include("selections.php");
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -104,24 +105,23 @@ include("selections.php");
             <?php
 
             // Lists the options from the array 'bugs' (bugs.txt)
-            foreach ($bugs as $key => $value)
-            {
+            foreach ($bugs as $key => $value) {
 
-               $bug = explode(",", trim($value));
+                $bug = explode(",", trim($value));
 
-               // Debugging
-               // echo "key: " . $key;
-               // echo " value: " . $bug[0];
-               // echo " filename: " . $bug[1] . "<br />";
-              $selected = (mb_stristr($bug[1], basename($_SERVER["SCRIPT_NAME"]))!==false)? ' selected="selected"':'';
+                // Debugging
+                // echo "key: " . $key;
+                // echo " value: " . $bug[0];
+                // echo " filename: " . $bug[1] . "<br />";
+                $selected = (mb_stristr($bug[1], basename($_SERVER["SCRIPT_NAME"])) !== false) ? ' selected="selected"' : '';
 
 
-              echo "
+                echo "
             <option title='$bug[1]' value='$key' $selected>$bug[0]</option>";
 
             }
 
-            ?>
+?>
 
         </select>
 

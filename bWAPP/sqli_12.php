@@ -31,15 +31,14 @@ $message = "(requires the PHP SQLite module)";
 function sqli($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             // Not working with PDO
             // $data = sqlite_escape_string($data);
@@ -47,7 +46,7 @@ function sqli($data)
             $data = sqli_check_4($data);
             break;
 
-        case "2" :
+        case "2":
 
             // Not working with PDO
             // $data = sqlite_escape_string($data);
@@ -55,7 +54,7 @@ function sqli($data)
             $data = sqli_check_4($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -109,7 +108,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -131,21 +132,16 @@ function sqli($data)
 
         <?php
 
-        if(isset($_POST["entry_add"]))
-        {
+        if(isset($_POST["entry_add"])) {
 
             $entry = sqli($_POST["entry"]);
             $owner = $_SESSION["login"];
 
-            if($entry == "")
-            {
+            if($entry == "") {
 
                 $message =  "<font color=\"red\">Please enter some text...</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $db = new PDO("sqlite:".$db_sqlite);
 
@@ -153,36 +149,33 @@ function sqli($data)
 
                 $recordset = $db->query($sql);
 
-		$row = $recordset->fetch();
+                $row = $recordset->fetch();
 
-		$id = $row["id"];
+                $id = $row["id"];
 
                 $sql = "INSERT INTO blog (id, date, entry, owner) VALUES (" . ++$id . ",'" . date('Y-m-d', time()) . "','" . $entry . "','" . $owner . "');";
 
-		$db->exec($sql);
+                $db->exec($sql);
 
                 $message = "<font color=\"green\">The entry was added to our blog!</font>";
 
             }
 
+        } elseif(isset($_POST["entry_delete"])) {
+
+            $db = new PDO("sqlite:".$db_sqlite);
+
+            $sql = "DELETE FROM blog;";
+
+            $db->exec($sql);
+
+            $message = "<font color=\"green\">Your entries were deleted!</font>";
+
         }
-
-	elseif(isset($_POST["entry_delete"]))
-	{
-
-		$db = new PDO("sqlite:".$db_sqlite);
-
-                $sql = "DELETE FROM blog;";
-
-                $db->exec($sql);
-
-		$message = "<font color=\"green\">Your entries were deleted!</font>";
-   
-	}
 
         echo "&nbsp;&nbsp;" . $message;
 
-        ?>
+?>
 
     </form>
 
@@ -201,11 +194,10 @@ function sqli($data)
 
 <?php
 
-if(!isset($db))
-{
+if(!isset($db)) {
 
     $db = new PDO("sqlite:".$db_sqlite);
- 
+
 }
 
 // Selects all the records
@@ -213,12 +205,11 @@ $sql = "SELECT * FROM blog";
 
 $recordset = $db->query($sql);
 
-if(!$recordset)
-{
+if(!$recordset) {
 
     // die("Error: " . $link->connect_error . "<br /><br />");
 
-?>
+    ?>
         <tr height="50">
 
             <td colspan="4" width="665"><?php die("Error: " . $db->errorCode()); ?></td>
@@ -229,13 +220,11 @@ if(!$recordset)
 
 }
 
-foreach($recordset as $row)
-{
+foreach($recordset as $row) {
 
-    if($_COOKIE["security_level"] == "2")
-    {
+    if($_COOKIE["security_level"] == "2") {
 
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row["id"]; ?></td>
@@ -247,14 +236,9 @@ foreach($recordset as $row)
 
 <?php
 
-    }
+    } elseif($_COOKIE["security_level"] == "1") {
 
-    else
-
-        if($_COOKIE["security_level"] == "1")
-        {
-
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row["id"]; ?></td>
@@ -266,12 +250,9 @@ foreach($recordset as $row)
 
 <?php
 
-        }
+    } else {
 
-        else
-        {
-
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row["id"]; ?></td>
@@ -283,7 +264,7 @@ foreach($recordset as $row)
 
 <?php
 
-        }
+    }
 
 }
 

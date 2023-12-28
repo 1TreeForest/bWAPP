@@ -21,29 +21,28 @@ include("security_level_check.php");
 include("functions_external.php");
 include("selections.php");
 
-$url= "";
+$url = "";
 
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
         // $url = "http://" . $_SERVER["HTTP_HOST"] . urldecode($_SERVER["REQUEST_URI"]);
         $url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
         break;
 
-    case "1" :
+    case "1":
 
         $url = "<script>document.write(document.URL)</script>";
         break;
 
-    case "2" :
+    case "2":
 
         $url = "http://" . $_SERVER["HTTP_HOST"] . xss_check_3($_SERVER["REQUEST_URI"]);
         break;
 
-    default :
+    default:
 
         // $url = "http://" . $_SERVER["HTTP_HOST"] . urldecode($_SERVER["REQUEST_URI"]);
         $url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
@@ -94,7 +93,9 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

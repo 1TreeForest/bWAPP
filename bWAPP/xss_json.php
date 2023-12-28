@@ -21,39 +21,32 @@ include("security_level_check.php");
 include("selections.php");
 include("functions_external.php");
 
-if(isset($_GET["title"]) and $_GET["title"])
-{
+if(isset($_GET["title"]) and $_GET["title"]) {
 
     // Creates the movie table
     $movies = array("CAPTAIN AMERICA", "IRON MAN", "SPIDER-MAN", "THE INCREDIBLE HULK", "THE WOLVERINE", "THOR", "X-MEN");
 
-    if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-    {
+    if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
         // Retrieves the movie title
         $title = $_GET["title"];
 
-    }
-
-    else
-    {
+    } else {
 
         $title = xss_check_3($_GET["title"]);
 
     }
 
     // Generates the output depending on the movie title received from the client
-    if(in_array(strtoupper($title), $movies))
+    if(in_array(strtoupper($title), $movies)) {
         $string = '{"movies":[{"response":"Yes! We have that movie..."}]}';
-    else
+    } else {
         $string = '{"movies":[{"response":"' . $title . '??? Sorry, we don&#039;t have that movie :("}]}';
+    }
 
-}
+} else {
 
-else
-{
-
-	$string = '{"movies":[{"response":"HINT: our master really loves Marvel movies :)"}]}';
+    $string = '{"movies":[{"response":"HINT: our master really loves Marvel movies :)"}]}';
 }
 
 ?>
@@ -99,7 +92,9 @@ else
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

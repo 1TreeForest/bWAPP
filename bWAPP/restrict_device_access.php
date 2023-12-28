@@ -25,25 +25,24 @@ $message = "";
 $authorized_device = false;
 
 // No differences between the security levels
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
-
-        $authorized_device = check_user_agent();
-        break;
-
-    case "1" :
+    case "0":
 
         $authorized_device = check_user_agent();
         break;
 
-    case "2" :
+    case "1":
 
         $authorized_device = check_user_agent();
         break;
 
-    default :
+    case "2":
+
+        $authorized_device = check_user_agent();
+        break;
+
+    default:
 
         $authorized_device = check_user_agent();
         break;
@@ -63,12 +62,10 @@ function check_user_agent()
     $devices = array("iPhone", "iPad", "iPod", "Android");
 
     // Searches for a string in an array
-    foreach($devices as $str)
-    {
+    foreach($devices as $str) {
 
         // echo $str;
-        if(strpos($user_agent, $str) !== false)
-        {
+        if(strpos($user_agent, $str) !== false) {
 
             // Debugging
             // echo $user_agent . " contains the word " . $str;
@@ -126,7 +123,9 @@ function check_user_agent()
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -144,15 +143,11 @@ function check_user_agent()
 
     <?php
 
-    if($authorized_device != false)
-    {
+    if($authorized_device != false) {
 
         $message = "<font color=\"green\">This is a smartphone or a tablet computer!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">This is not a smartphone or a tablet computer (Apple/Android)!</font>";
 
@@ -160,7 +155,7 @@ function check_user_agent()
 
     echo $message;
 
-    ?>
+?>
 
 
     </p>

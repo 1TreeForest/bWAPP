@@ -21,26 +21,23 @@ include("security_level_check.php");
 include("functions_external.php");
 include("selections.php");
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
     $file_error = "";
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $_FILES["file"]["name"]);
 
             break;
 
-        case "1" :
+        case "1":
 
             $file_error = file_upload_check_1($_FILES["file"]);
 
-            if(!$file_error)
-            {
+            if(!$file_error) {
 
                 move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $_FILES["file"]["name"]);
 
@@ -48,12 +45,11 @@ if(isset($_POST["form"]))
 
             break;
 
-        case "2" :
+        case "2":
 
             $file_error = file_upload_check_2($_FILES["file"], array("jpg","png"));
 
-            if(!$file_error)
-            {
+            if(!$file_error) {
 
                 move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $_FILES["file"]["name"]);
 
@@ -61,9 +57,9 @@ if(isset($_POST["form"]))
 
             break;
 
-        default :
+        default:
 
-            move_uploaded_file($_FILES["file"]["tmp_name"],"images/" . $_FILES["file"]["name"]);
+            move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $_FILES["file"]["name"]);
 
             break;
 
@@ -114,7 +110,9 @@ if(isset($_POST["form"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -141,18 +139,13 @@ if(isset($_POST["form"]))
     <br />
     <?php
 
-    if(isset($_POST["form"]))
-    {
+    if(isset($_POST["form"])) {
 
-        if(!$file_error)
-        {
+        if(!$file_error) {
 
             echo "The image has been uploaded <a href=\"images/" . $_FILES["file"]["name"] . "\" target=\"_blank\">here</a>.";
 
-        }
-
-        else
-        {
+        } else {
 
             echo "<font color=\"red\">" . $file_error . "</font>";
 
@@ -160,7 +153,7 @@ if(isset($_POST["form"]))
 
     }
 
-    ?>
+?>
 </div>
 
 <div id="side">

@@ -26,28 +26,26 @@ ini_set("display_errors", 1);
 function xmli($data)
 {
 
-    if(isset($_COOKIE["security_level"]))
-    {
+    if(isset($_COOKIE["security_level"])) {
 
-        switch($_COOKIE["security_level"])
-        {
+        switch($_COOKIE["security_level"]) {
 
-            case "0" :
+            case "0":
 
                 $data = no_check($data);
                 break;
 
-            case "1" :
+            case "1":
 
                 $data = xmli_check_1($data);
                 break;
 
-            case "2" :
+            case "2":
 
                 $data = xmli_check_1($data);
                 break;
 
-            default :
+            default:
 
                 $data = no_check($data);
                 break;
@@ -103,7 +101,9 @@ function xmli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -144,8 +144,7 @@ function xmli($data)
         </tr>
 <?php
 
-if(isset($_REQUEST["genre"]))
-{
+if(isset($_REQUEST["genre"])) {
 
     $genre = $_REQUEST["genre"];
     $genre = xmli($genre);
@@ -170,15 +169,13 @@ if(isset($_REQUEST["genre"]))
     // echo $result[0][0];
     // echo $result[0]->login;
 
-    if($result)
-    {
+    if($result) {
 
-        foreach($result as $key => $row)
-        {
+        foreach($result as $key => $row) {
 
             // print_r($row);
 
-?>
+            ?>
 
         <tr height="40">
 
@@ -190,12 +187,9 @@ if(isset($_REQUEST["genre"]))
 
         }
 
-    }
+    } else {
 
-    else
-    {
-
-?>
+        ?>
 
         <tr height="40">
 
@@ -206,12 +200,9 @@ if(isset($_REQUEST["genre"]))
 
     }
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
 
         <tr height="40">
 

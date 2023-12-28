@@ -23,31 +23,22 @@ include("selections.php");
 
 $message = "";
 
-if(isset($_REQUEST["action"]))
-{
+if(isset($_REQUEST["action"])) {
 
     $password_new = $_REQUEST["password_new"];
     $password_conf = $_REQUEST["password_conf"];
 
-    if($password_new == "")
-    {
+    if($password_new == "") {
 
         $message = "<font color=\"red\">Please enter a new password...</font>";
 
-    }
+    } else {
 
-    else
-    {
-
-        if($password_new != $password_conf)
-        {
+        if($password_new != $password_conf) {
 
             $message = "<font color=\"red\">The passwords don't match!</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             $login = $_SESSION["login"];
 
@@ -65,8 +56,7 @@ if(isset($_REQUEST["action"]))
 
             $recordset = $link->query($sql);
 
-            if(!$recordset)
-            {
+            if(!$recordset) {
 
                 die("Error: " . $link->error);
 
@@ -78,8 +68,7 @@ if(isset($_REQUEST["action"]))
 
             $row = $recordset->fetch_object();
 
-            if($row)
-            {
+            if($row) {
 
                 // Debugging
                 // echo "<br />Row: ";
@@ -92,8 +81,7 @@ if(isset($_REQUEST["action"]))
 
                 $recordset = $link->query($sql);
 
-                if(!$recordset)
-                {
+                if(!$recordset) {
 
                     die("Error: " . $link->error);
 
@@ -105,10 +93,7 @@ if(isset($_REQUEST["action"]))
 
                 $message = "<font color=\"green\">The password has been changed!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $message = "<font color=\"red\">The current password is not valid!</font>";
 
@@ -163,7 +148,9 @@ if(isset($_REQUEST["action"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -175,7 +162,9 @@ if(isset($_REQUEST["action"]))
 
     <h1>Change Password</h1>
 
-    <p>Please change your password <b><?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);} ?></b>.</p>
+    <p>Please change your password <b><?php if(isset($_SESSION["login"])) {
+        echo ucwords($_SESSION["login"]);
+    } ?></b>.</p>
 
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
 
@@ -197,9 +186,9 @@ if(isset($_REQUEST["action"]))
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 </div>
 
 <div id="side">

@@ -21,8 +21,7 @@ include("security_level_check.php");
 include("functions_external.php");
 include("selections.php");
 
-if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
     header("X-Frame-Options: DENY");
 }
@@ -72,7 +71,11 @@ $ticket_price = 15;
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);};}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                if(isset($_SESSION["login"])) {
+                    echo ucwords($_SESSION["login"]);
+                };
+            }?></font></td>
 
         </tr>
 
@@ -102,8 +105,7 @@ $ticket_price = 15;
 
 <?php
 
-if(isset($_REQUEST["ticket_quantity"]))
-{
+if(isset($_REQUEST["ticket_quantity"])) {
 
     $ticket_quantity = abs($_REQUEST["ticket_quantity"]);
     $total_amount = $ticket_quantity * $ticket_price;

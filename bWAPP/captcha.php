@@ -49,12 +49,10 @@ $font = "fonts/arial.ttf";
 // Writes the string (TTF)
 // imagettftext($image, $size, $angle, $x, $y, $color, $fontfile, $text);
 imagettftext($image, 20, 0, 75, 38, $orange, $font, $captcha);
-        
+
 // Output the image to the browser
-header ("Content-type: image/png");
+header("Content-type: image/png");
 imagepng($image);
 
 // Cleans up after yourself
-imagedestroy($image)
-
-?>
+imagedestroy($image);

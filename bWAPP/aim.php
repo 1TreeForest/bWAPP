@@ -53,18 +53,16 @@ include("admin/settings.php");
 $bugs = file("bugs.txt");
 
 // Displays all bugs, from the array 'bugs' (bugs.txt)
-foreach ($bugs as $key => $value)
-{
+foreach ($bugs as $key => $value) {
 
     $bug = explode(",", trim($value));
 
     // Debugging
     // echo "key: " . $key;
     // echo " value: " . $bug[0];
-    // echo " filename: " . $bug[1] . "<br />"; 
- 
-    if(!in_array($bug[1], $AIM_exclusions))
-    {
+    // echo " filename: " . $bug[1] . "<br />";
+
+    if(!in_array($bug[1], $AIM_exclusions)) {
 
         echo "<p><a href='$bug[1]'>$bug[0]</a></p>";
 

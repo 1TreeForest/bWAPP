@@ -24,25 +24,24 @@ include("selections.php");
 function ldapi($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = ldapi_check_1($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = ldapi_check_1($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -53,8 +52,7 @@ function ldapi($data)
 
 }
 
-if(!(isset($_SESSION["ldap"]["login"]) && $_SESSION["ldap"]["login"]))
-{
+if(!(isset($_SESSION["ldap"]["login"]) && $_SESSION["ldap"]["login"])) {
 
     header("Location: ldap_connect.php");
 
@@ -76,14 +74,12 @@ ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);// Sets the LDAP Protocol use
 ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
 $r = ldap_bind($ds, $login, $password);
 
-if($r)
-{
+if($r) {
 
     // Searches the LDAP attributes for the user who connected to the LDAP server
     // If the login name contains a '\' (= pre-windows 2000 domain name) then we need the SAMAccountName
     // The SAMAccountName is the part after the '\'
-    if(strpos($login, "\\") !== false)
-    {
+    if(strpos($login, "\\") !== false) {
 
         // Debugging
         // echo $login . " contains the character \\";
@@ -98,10 +94,7 @@ if($r)
         $search_for = $samaccountname;// The string to find
         $search_field = "samaccountname";// The LDAP field to search for the string
 
-    }
-
-    else
-    {
+    } else {
 
         // Sets the fields for $filter
         $search_for = $login;// The string to find
@@ -175,7 +168,9 @@ ldap_close($ds);
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -230,8 +225,7 @@ ldap_close($ds);
         </tr>
 <?php
 
-if(isset($_POST["user"]))
-{
+if(isset($_POST["user"])) {
 
     // Connects and binds to the LDAP server
     $ds = ldap_connect($server);
@@ -239,8 +233,7 @@ if(isset($_POST["user"]))
     ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
     $r = ldap_bind($ds, $login, $password);
 
-    if($r)
-    {
+    if($r) {
 
         // Sets the fields for $filter
         $search_for = $_REQUEST["user"];// The string to find
@@ -281,8 +274,7 @@ if(isset($_POST["user"]))
         // Debugging
         // print_r($info);
 
-        for($x=0; $x<$info["count"]; $x++)
-        {
+        for($x = 0; $x < $info["count"]; $x++) {
 
             $objectsid = bin_sid_to_text($info[$x]["objectsid"][0]);
             $samaccountname = $info[$x]["samaccountname"][0];
@@ -290,7 +282,7 @@ if(isset($_POST["user"]))
             $cn = $info[$x]["cn"][0];
             $givenname = $info[$x]["displayname"][0];
 
-?>
+            ?>
 
         <tr height="40">
 

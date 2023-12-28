@@ -25,20 +25,17 @@ include("selections.php");
 $directory = "documents";
 
 // Downloads a file
-if(isset($_GET["file"]))
-{
+if(isset($_GET["file"])) {
 
     $file = $_GET["file"];
 
     // Checks for directory traversal
     $directory_traversal_error = directory_traversal_check_3($file, $base_path = "./" . $directory);
 
-    if(!$directory_traversal_error)
-    {
+    if(!$directory_traversal_error) {
 
         // Checks if the file exists
-        if(is_file($file))
-        {
+        if(is_file($file)) {
 
             // Debugging
             // echo $file;
@@ -109,7 +106,9 @@ if(isset($_GET["file"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -127,14 +126,12 @@ if(isset($_GET["file"]))
 
     <?php
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             // Deletes the '.htaccesss' file
-            if(file_exists($directory . "/.htaccess"))
-            {
+            if(file_exists($directory . "/.htaccess")) {
 
                 unlink($directory . "/.htaccess");
 
@@ -142,11 +139,9 @@ if(isset($_GET["file"]))
 
             $dp = opendir($directory);
 
-            while($line = readdir($dp))
-            {
+            while($line = readdir($dp)) {
 
-                if($line != "." && $line != "..")
-                {
+                if($line != "." && $line != "..") {
 
                     echo "<a href=\"" . $directory . "/" . $line . "\" target=\"_blank\">" . $line . "</a><br />";
 
@@ -156,7 +151,7 @@ if(isset($_GET["file"]))
 
             break;
 
-        case "1" :
+        case "1":
 
             // Creates the '.htaccess' file
             $fp = fopen($directory . "/.htaccess", "w");
@@ -165,11 +160,9 @@ if(isset($_GET["file"]))
 
             $dp = opendir($directory);
 
-            while($line = readdir($dp))
-            {
+            while($line = readdir($dp)) {
 
-                if($line != "." && $line != ".." && $line != ".htaccess")
-                {
+                if($line != "." && $line != ".." && $line != ".htaccess") {
 
                     echo "<a href=\"restrict_folder_access.php?file=" . $directory . "/" . $line . "\">" . $line . "</a><br />";
 
@@ -179,7 +172,7 @@ if(isset($_GET["file"]))
 
             break;
 
-        case "2" :
+        case "2":
 
             // Creates the '.htaccess' file
             $fp = fopen($directory . "/.htaccess", "w");
@@ -188,11 +181,9 @@ if(isset($_GET["file"]))
 
             $dp = opendir($directory);
 
-            while($line = readdir($dp))
-            {
+            while($line = readdir($dp)) {
 
-                if($line != "." && $line != ".." && $line != ".htaccess")
-                {
+                if($line != "." && $line != ".." && $line != ".htaccess") {
 
                     echo "<a href=\"restrict_folder_access.php?file=" . $directory . "/" . $line . "\">" . $line . "</a><br />";
 
@@ -202,11 +193,10 @@ if(isset($_GET["file"]))
 
             break;
 
-        default :
+        default:
 
             // Deletes the '.htaccesss' file
-            if(file_exists($directory . "/.htaccess"))
-            {
+            if(file_exists($directory . "/.htaccess")) {
 
                 unlink($directory . "/.htaccess");
 
@@ -214,11 +204,9 @@ if(isset($_GET["file"]))
 
             $dp = opendir($directory);
 
-            while($line = readdir($dp))
-            {
+            while($line = readdir($dp)) {
 
-                if($line != "." && $line != "..")
-                {
+                if($line != "." && $line != "..") {
 
                     echo "<a href=\"" . $directory . "/" . $line . "\" target=\"_blank\">" . $line . "</a><br />";
 
@@ -230,7 +218,7 @@ if(isset($_GET["file"]))
 
     }
 
-    ?>
+?>
 
 
 </div>

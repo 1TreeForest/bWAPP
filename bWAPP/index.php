@@ -16,6 +16,4 @@ bWAPP is licensed under a Creative Commons Attribution-NonCommercial-NoDerivativ
 
 */
 
-header("Location: portal.php");  
-
-?>
+header("Location: portal.php");

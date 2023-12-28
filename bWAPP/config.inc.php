@@ -29,5 +29,3 @@ $database = $db_name;
 // $username = "root";
 // $password = "";
 // $database = "bWAPP";
-
-?>

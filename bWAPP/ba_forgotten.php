@@ -25,32 +25,26 @@ include("admin/settings.php");
 
 $message = "";
 
-if(isset($_POST["action"]))
-{
+if(isset($_POST["action"])) {
 
     $email = $_POST["email"];
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-    {
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-    $message = "<font color=\"red\">Please enter a valid e-mail address!</font>";
+        $message = "<font color=\"red\">Please enter a valid e-mail address!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         $email = mysqli_real_escape_string($link, $email);
 
         $sql = "SELECT * FROM users WHERE email = '" . $email . "'";
 
         // Debugging
-        // echo $sql;    
+        // echo $sql;
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . $link->error);
 
@@ -63,8 +57,7 @@ if(isset($_POST["action"]))
         $row = $recordset->fetch_object();
 
         // If the user is present
-        if($row)
-        {
+        if($row) {
 
             // Debugging
             // echo "<br />Row: ";
@@ -74,8 +67,7 @@ if(isset($_POST["action"]))
 
             // Security level LOW
             // Prints the secret
-            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-            {
+            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
                 $secret = $row->secret;
 
@@ -85,16 +77,14 @@ if(isset($_POST["action"]))
 
             // Security level MEDIUM
             // Mails the secret
-            if($_COOKIE["security_level"] == "1")
-            {
+            if($_COOKIE["security_level"] == "1") {
 
-                if($smtp_server != "")
-                {
+                if($smtp_server != "") {
 
-                    ini_set( "SMTP", $smtp_server);
+                    ini_set("SMTP", $smtp_server);
 
-                // Debugging
-                // $debug = "true";
+                    // Debugging
+                    // $debug = "true";
 
                 }
 
@@ -106,40 +96,34 @@ if(isset($_POST["action"]))
                 $sender = $smtp_sender;
 
                 $content = "Hello " . ucwords($login) . ",\n\n";
-                $content.= "Your secret: " . $secret . "\n\n";
-                $content.= "Greets from bWAPP!";
+                $content .= "Your secret: " . $secret . "\n\n";
+                $content .= "Greets from bWAPP!";
 
                 $status = @mail($email, $subject, $content, "From: $sender");
 
-                if($status != true)
-                {
+                if($status != true) {
 
                     $message = "<font color=\"red\">An e-mail could not be sent...</font>";
 
-                    // Debugging
-                    // die("Error: mail was NOT send");
-                    // echo "Mail was NOT send";
+                // Debugging
+                // die("Error: mail was NOT send");
+                // echo "Mail was NOT send";
 
-                }
-
-                else
-                {
+                } else {
 
                     $message = "<font color=\"green\">An e-mail with your secret has been sent.</font>";
 
-                 }
+                }
 
             }
 
             // Security level HIGH
             // Mails a reset code
-            if($_COOKIE["security_level"] == "2")
-            {
+            if($_COOKIE["security_level"] == "2") {
 
-                if($smtp_server != "")
-                {
+                if($smtp_server != "") {
 
-                    ini_set( "SMTP", $smtp_server);
+                    ini_set("SMTP", $smtp_server);
 
                     // Debugging
                     // $debug = "true";
@@ -161,24 +145,20 @@ if(isset($_POST["action"]))
                 $email_enc = urlencode($email);
 
                 $content = "Hello " . ucwords($login) . ",\n\n";
-                $content.= "Click the link to reset and change your secret: http://" . $server . "/bWAPP/secret_change.php?email=" . $email_enc . "&reset_code=" . $reset_code . "\n\n";
-                $content.= "Greets from bWAPP!";                 
+                $content .= "Click the link to reset and change your secret: http://" . $server . "/bWAPP/secret_change.php?email=" . $email_enc . "&reset_code=" . $reset_code . "\n\n";
+                $content .= "Greets from bWAPP!";
 
                 $status = @mail($email, $subject, $content, "From: $sender");
 
-                if($status != true)
-                {
+                if($status != true) {
 
                     $message = "<font color=\"red\">An e-mail could not be sent...</font>";
 
-                    // Debugging
-                    // die("Error: mail was NOT send");
-                    // echo "Mail was NOT send";
+                // Debugging
+                // die("Error: mail was NOT send");
+                // echo "Mail was NOT send";
 
-                }
-
-                else
-                {
+                } else {
 
                     $sql = "UPDATE users SET reset_code = '" . $reset_code . "' WHERE email = '" . $email . "'";
 
@@ -187,8 +167,7 @@ if(isset($_POST["action"]))
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Error: " . $link->error);
 
@@ -200,24 +179,17 @@ if(isset($_POST["action"]))
 
                     $message = "<font color=\"green\">An e-mail with a reset code has been sent.</font>";
 
-                 }
+                }
 
             }
 
-        }
+        } else {
 
-        else
-        {
-
-            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-            {
+            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
                 $message = "<font color=\"red\">Invalid user!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $message = "<font color=\"green\">An e-mail with a reset code has been sent. Yeah right :)</font>";
 
@@ -272,7 +244,9 @@ if(isset($_POST["action"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -300,9 +274,9 @@ if(isset($_POST["action"]))
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 
 </div>
 

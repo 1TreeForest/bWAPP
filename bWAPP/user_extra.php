@@ -25,8 +25,7 @@ include("admin/settings.php");
 
 $message = "";
 
-if(isset($_REQUEST["action"]))
-{
+if(isset($_REQUEST["action"])) {
 
     $login = $_REQUEST["login"];
     $password = $_REQUEST["password"];
@@ -35,15 +34,11 @@ if(isset($_REQUEST["action"]))
     $secret = $_REQUEST["secret"];
     $mail_activation = isset($_POST["mail_activation"]) ? 1 : 0;
 
-    if($login == "" or $email == "" or $password == "" or $secret == "")
-    {
+    if($login == "" or $email == "" or $password == "" or $secret == "") {
 
         $message = "<font color=\"red\">Please enter all the fields!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         /*
 
@@ -63,35 +58,23 @@ if(isset($_REQUEST["action"]))
 
          */
 
-        if(preg_match("/^[a-z\d_]{2,20}$/i", $login) == false)
-        {
+        if(preg_match("/^[a-z\d_]{2,20}$/i", $login) == false) {
 
             $message = "<font color=\"red\">Please choose a valid login name!</font>";
 
-        }
+        } else {
 
-        else
-        {
-
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-            {
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 $message = "<font color=\"red\">Please enter a valid e-mail address!</font>";
 
-            }
+            } else {
 
-            else
-            {
-
-                if($password != $password_conf)
-                {
+                if($password != $password_conf) {
 
                     $message = "<font color=\"red\">The passwords don't match!</font>";
 
-                }
-
-                else
-                {
+                } else {
 
                     // Input validations
                     $login = mysqli_real_escape_string($link, $login);
@@ -113,8 +96,7 @@ if(isset($_REQUEST["action"]))
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Error: " . $link->error);
 
@@ -127,25 +109,22 @@ if(isset($_REQUEST["action"]))
                     $row = $recordset->fetch_object();
 
                     // If the user is not present
-                    if(!$row)
-                    {
+                    if(!$row) {
 
                         // Debugging
                         // echo "<br />Row: ";
                         // print_r($row);
 
-                        if($mail_activation == false)
-                        {
-                        
-                            $sql = "INSERT INTO users (login, password, email, secret, activated) VALUES ('" . $login . "','" . $password . "','" . $email .  "','" . $secret . "',1)"; 
+                        if($mail_activation == false) {
+
+                            $sql = "INSERT INTO users (login, password, email, secret, activated) VALUES ('" . $login . "','" . $password . "','" . $email .  "','" . $secret . "',1)";
 
                             // Debugging
                             // echo $sql;
 
                             $recordset = $link->query($sql);
 
-                            if(!$recordset)
-                            {
+                            if(!$recordset) {
 
                                 die("Error: " . $link->error);
 
@@ -157,10 +136,7 @@ if(isset($_REQUEST["action"]))
 
                             $message = "<font color=\"green\">User successfully created!</font>";
 
-                        }
-                        
-                        else
-                        {
+                        } else {
 
                             // 'Activation code' generation
                             $activation_code = random_string();
@@ -169,13 +145,12 @@ if(isset($_REQUEST["action"]))
                             // Debugging
                             // echo $activation_code;
 
-                            if($smtp_server != "")
-                            {
+                            if($smtp_server != "") {
 
-                                ini_set( "SMTP", $smtp_server);
+                                ini_set("SMTP", $smtp_server);
 
-                            //Debugging
-                            // $debug = "true";
+                                //Debugging
+                                // $debug = "true";
 
                             }
 
@@ -185,34 +160,29 @@ if(isset($_REQUEST["action"]))
                             $sender = $smtp_sender;
 
                             $content = "Welcome " . ucwords($login) . ",\n\n";
-                            $content.= "Click the link to activate your new user:\n\nhttp://" . $server . "/bWAPP/user_activation.php?user=" . $login . "&activation_code=" . $activation_code . "\n\n";
-                            $content.= "Greets from bWAPP!";
+                            $content .= "Click the link to activate your new user:\n\nhttp://" . $server . "/bWAPP/user_activation.php?user=" . $login . "&activation_code=" . $activation_code . "\n\n";
+                            $content .= "Greets from bWAPP!";
 
                             $status = @mail($email, $subject, $content, "From: $sender");
 
-                            if($status != true)
-                            {
+                            if($status != true) {
 
                                 $message = "<font color=\"red\">User not successfully created! An e-mail could not be sent...</font>";
 
-                                // Debugging
-                                // die("Error: mail was NOT send");
-                                // echo "Mail was NOT send";
+                            // Debugging
+                            // die("Error: mail was NOT send");
+                            // echo "Mail was NOT send";
 
-                            }
+                            } else {
 
-                            else
-                            {
-
-                                $sql = "INSERT INTO users (login, password, email, secret, activation_code) VALUES ('" . $login . "','" . $password . "','" . $email .  "','" . $secret . "','" . $activation_code . "')"; 
+                                $sql = "INSERT INTO users (login, password, email, secret, activation_code) VALUES ('" . $login . "','" . $password . "','" . $email .  "','" . $secret . "','" . $activation_code . "')";
 
                                 // Debugging
                                 // echo $sql;
 
                                 $recordset = $link->query($sql);
 
-                                if(!$recordset)
-                                {
+                                if(!$recordset) {
 
                                     die("Error: " . $link->error);
 
@@ -231,10 +201,7 @@ if(isset($_REQUEST["action"]))
 
                         }
 
-                    }
-
-                    else
-                    {
+                    } else {
 
                         $message = "<font color=\"red\">The login or e-mail already exists!</font>";
 
@@ -293,7 +260,9 @@ if(isset($_REQUEST["action"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -368,9 +337,9 @@ if(isset($_REQUEST["action"]))
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 
 </div>
 

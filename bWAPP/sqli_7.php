@@ -31,25 +31,24 @@ function sqli($data)
 
     include("connect_i.php");
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = sqli_check_1($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = sqli_check_3($link, $data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -103,7 +102,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -124,28 +125,22 @@ function sqli($data)
 
         <?php
 
-        if(isset($_POST["blog"]))
-        {
+        if(isset($_POST["blog"])) {
 
             $entry = sqli($_POST["entry"]);
             $owner = $_SESSION["login"];
 
-            if($entry == "")
-            {
+            if($entry == "") {
 
                 $message =  "<font color=\"red\">Please enter some text...</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $sql = "INSERT INTO blog (date, entry, owner) VALUES (now(),'" . $entry . "','" . $owner . "')";
 
                 $recordset = $link->query($sql);
 
-                if(!$recordset)
-                {
+                if(!$recordset) {
 
                     die("Error: " . $link->error . "<br /><br />");
 
@@ -162,7 +157,7 @@ function sqli($data)
 
         echo "&nbsp;&nbsp;" . $message;
 
-        ?>
+?>
 
     </form>
 
@@ -184,14 +179,13 @@ function sqli($data)
 // Selects all the records
 $sql = "SELECT * FROM blog";
 
-$recordset = $link->query($sql);             
+$recordset = $link->query($sql);
 
-if(!$recordset)
-{
+if(!$recordset) {
 
     // die("Error: " . $link->connect_error . "<br /><br />");
 
-?>
+    ?>
         <tr height="50">
 
             <td colspan="4" width="665"><?php die("Error: " . $link->error);?></td>
@@ -207,13 +201,11 @@ if(!$recordset)
 
 }
 
-while($row = $recordset->fetch_object())
-{
+while($row = $recordset->fetch_object()) {
 
-    if($_COOKIE["security_level"] == "2")
-    {
+    if($_COOKIE["security_level"] == "2") {
 
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row->id; ?></td>
@@ -225,14 +217,9 @@ while($row = $recordset->fetch_object())
 
 <?php
 
-    }
+    } elseif($_COOKIE["security_level"] == "1") {
 
-    else
-
-        if($_COOKIE["security_level"] == "1")
-        {
-
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row->id; ?></td>
@@ -244,13 +231,9 @@ while($row = $recordset->fetch_object())
 
 <?php
 
-        }
+    } else {
 
-        else
-
-            {
-
-?>
+        ?>
         <tr height="40">
 
             <td align="center"><?php echo $row->id; ?></td>
@@ -262,7 +245,7 @@ while($row = $recordset->fetch_object())
 
 <?php
 
-            }
+    }
 
 }
 

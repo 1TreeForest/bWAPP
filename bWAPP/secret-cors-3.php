@@ -19,5 +19,3 @@ bWAPP is licensed under a Creative Commons Attribution-NonCommercial-NoDerivativ
 header("Content-Type: text/plain");
 
 echo "Johnny's secret: I'm the Ghost Rider!";
-
-?>

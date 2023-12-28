@@ -24,25 +24,24 @@ include("selections.php");
 $message = "";
 $login = "test";
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
         $password = "test";
         break;
 
-    case "1" :
+    case "1":
 
         $password = "test123";
         break;
 
-    case "2" :
+    case "2":
 
         $password = "Test123";
         break;
 
-    default :
+    default:
 
         $password = "test";
         break;
@@ -92,7 +91,9 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -121,22 +122,17 @@ switch($_COOKIE["security_level"])
     <br />
 <?php
 
-    if(isset($_POST["form"]))
-    {
+    if(isset($_POST["form"])) {
 
-        if($_POST["login"] == $login && $_POST["password"] == $password)
-        {
+        if($_POST["login"] == $login && $_POST["password"] == $password) {
 
             $message = "<font color=\"green\">Successful login!</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             $message = "<font color=\"red\">Invalid credentials!</font>";
 
-            }
+        }
 
     }
 

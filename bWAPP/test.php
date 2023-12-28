@@ -17,5 +17,3 @@ bWAPP is licensed under a Creative Commons Attribution-NonCommercial-NoDerivativ
 */
 
 echo urldecode($_SERVER["QUERY_STRING"]);
-
-?>

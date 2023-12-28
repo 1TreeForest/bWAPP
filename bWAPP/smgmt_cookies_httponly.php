@@ -36,34 +36,33 @@ Another way to debug/test is to view all cookies
 print_r($_COOKIE);
 */
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
         // The cookie will be available within the entire domain
-        setcookie("top_security", "no", time()+3600, "/", "", false, false);
+        setcookie("top_security", "no", time() + 3600, "/", "", false, false);
         break;
 
-    case "1" :
+    case "1":
 
         // The cookie will be available within the entire domain
         // Sets the Http Only flag
-        setcookie("top_security", "maybe", time()+3600, "/", "", false, true);
+        setcookie("top_security", "maybe", time() + 3600, "/", "", false, true);
         break;
 
-    case "2" :
+    case "2":
 
         // The cookie will be available within the entire domain
         // The cookie expires at end of the session
         // Sets the Http Only flag
-        setcookie("top_security", "yes", time()+300, "/", "", false, true);
+        setcookie("top_security", "yes", time() + 300, "/", "", false, true);
         break;
 
-    default :
+    default:
 
         // The cookie will be available within the entire domain
-        setcookie("top_security", "no", time()+3600, "/", "", false, false);
+        setcookie("top_security", "no", time() + 3600, "/", "", false, false);
         break;
 
 }
@@ -122,7 +121,9 @@ function show_my_cookies()
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -157,13 +158,11 @@ function show_my_cookies()
         </tr>
 <?php
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
-    foreach ($_COOKIE as $key => $cookie)
-    {
+    foreach ($_COOKIE as $key => $cookie) {
 
-?>
+        ?>
 
         <tr height="30">
 

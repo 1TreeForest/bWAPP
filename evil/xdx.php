@@ -16,8 +16,7 @@ Twitter: @MME_IT
 
 */
 
-if(isset($_POST["data"]))
-{
+if(isset($_POST["data"])) {
 
     $req_dump = $_POST["data"];
     $fp = fopen("xdx.log", "w");

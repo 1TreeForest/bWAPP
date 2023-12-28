@@ -64,7 +64,9 @@ include("selections.php");
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -159,22 +161,18 @@ include("selections.php");
                     // Extracts the JSON retrieved from the server
 <?php
 
-                if($_COOKIE["security_level"] == "2")
-                {
+                if($_COOKIE["security_level"] == "2") {
 
-?>
+                    ?>
                     JSONResponse = JSON.parse(xmlHttp.responseText);
 <?php
 
-                }
-
-                else
-                {
-?>
+                } else {
+                    ?>
                     JSONResponse = eval("(" + xmlHttp.responseText + ")");
 <?php
 
-                    }
+                }
 
 ?>
                     // Generates HTML output

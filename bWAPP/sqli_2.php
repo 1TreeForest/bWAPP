@@ -22,8 +22,7 @@ include("selections.php");
 include("functions_external.php");
 include("connect.php");
 
-if($_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "2") {
 
     header("Location: sqli_2-ps.php");
 
@@ -39,20 +38,19 @@ $recordset = mysqli_query($link, $sql);
 function sqli($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = sqli_check_2($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -106,7 +104,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -127,10 +127,9 @@ function sqli($data)
 <?php
 
             // Fills the 'select' object
-            while($row = mysqli_fetch_array($recordset))
-            {
+            while($row = mysqli_fetch_array($recordset)) {
 
-?>
+                ?>
             <option value="<?php echo $row["id"];?>"><?php echo $row["title"];?></option>
 <?php
 
@@ -159,29 +158,26 @@ function sqli($data)
         </tr>
 <?php
 
-if(isset($_GET["movie"]))
-{
+if(isset($_GET["movie"])) {
 
     $id = $_GET["movie"];
 
     $sql = "SELECT * FROM movies";
 
     // If the user selects a movie
-    if($id)
-    {
+    if($id) {
 
-        $sql.= " WHERE id = " . sqli($id);
+        $sql .= " WHERE id = " . sqli($id);
 
     }
 
     $recordset = mysqli_query($link, $sql);
 
-    if(!$recordset)
-    {
+    if(!$recordset) {
 
         // die("Error: " . mysqli_error());
 
-?>
+        ?>
 
         <tr height="50">
 
@@ -199,14 +195,13 @@ if(isset($_GET["movie"]))
     }
 
     // Shows the movie details when a valid record exists
-    if(mysqli_num_rows($recordset) != 0)
-    {
+    if(mysqli_num_rows($recordset) != 0) {
 
         $row = mysqli_fetch_array($recordset);
 
         // print_r($row);
 
-?>
+        ?>
 
         <tr height="30">
 
@@ -219,12 +214,9 @@ if(isset($_GET["movie"]))
         </tr>
 <?php
 
-    }
+    } else {
 
-    else
-    {
-
-?>
+        ?>
 
         <tr height="30">
 
@@ -241,12 +233,9 @@ if(isset($_GET["movie"]))
 
     }
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
 
         <tr height="30">
 

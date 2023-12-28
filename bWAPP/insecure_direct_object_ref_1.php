@@ -25,30 +25,22 @@ $message = "";
 
 $login = $_SESSION["login"];
 
-if(isset($_POST["action"]))
-{
+if(isset($_POST["action"])) {
 
-    if(isset($_REQUEST["secret"]))
-    {
+    if(isset($_REQUEST["secret"])) {
 
         $secret = $_REQUEST["secret"];
 
-        if($secret == "")
-        {
+        if($secret == "") {
 
             $message = "<font color=\"red\">Please enter a new secret...</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             // If the security level is not MEDIUM or HIGH
-            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-            {
+            if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-                if(isset($_REQUEST["login"]) && $_REQUEST["login"])
-                {
+                if(isset($_REQUEST["login"]) && $_REQUEST["login"]) {
 
                     $login = $_REQUEST["login"];
                     $login = mysqli_real_escape_string($link, $login);
@@ -63,8 +55,7 @@ if(isset($_POST["action"]))
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Connect Error: " . $link->error);
 
@@ -72,30 +63,20 @@ if(isset($_POST["action"]))
 
                     $message = "<font color=\"green\">The secret has been changed!</font>";
 
-                }
-
-                else
-                {
+                } else {
 
                     $message = "<font color=\"red\">Invalid login!</font>";
 
                 }
 
-            }
-
-            else
-            {
+            } else {
 
                 // If the security level is MEDIUM or HIGH
-                if(!isset($_REQUEST["token"]) or !isset($_SESSION["token"]) or $_REQUEST["token"] != $_SESSION["token"])
-                {
+                if(!isset($_REQUEST["token"]) or !isset($_SESSION["token"]) or $_REQUEST["token"] != $_SESSION["token"]) {
 
                     $message = "<font color=\"red\">Invalid token!</font>";
 
-                }
-
-                else
-                {
+                } else {
 
                     $secret = mysqli_real_escape_string($link, $secret);
                     $secret = htmlspecialchars($secret, ENT_QUOTES, "UTF-8");
@@ -107,8 +88,7 @@ if(isset($_POST["action"]))
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Connect Error: " . $link->error);
 
@@ -122,10 +102,7 @@ if(isset($_POST["action"]))
 
         }
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">Invalid secret!</font>";
 
@@ -134,10 +111,9 @@ if(isset($_POST["action"]))
 }
 
 // A random token is generated when the security level is MEDIUM or HIGH
-if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
-    $token = sha1(uniqid(mt_rand(0,100000)));
+    $token = sha1(uniqid(mt_rand(0, 100000)));
     $_SESSION["token"] = $token;
 
 }
@@ -185,7 +161,9 @@ if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -205,27 +183,23 @@ if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
         <input type="text" id="secret" name="secret"></p>
         <?php
 
-        if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-        {
+        if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-        ?>
+            ?>
 
         <input type="hidden" name="login" value="<?php echo $login;?>">
         <?php
 
-        }
+        } else {
 
-        else
-        {
-
-        ?>
+            ?>
 
         <input type="hidden" id="token" name="token" value="<?php echo $_SESSION["token"]?>">
         <?php
 
         }
 
-        ?>
+?>
 
         <button type="submit" name="action" value="change">Change</button>
 
@@ -234,11 +208,11 @@ if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
     </br >
     <?php
 
-        echo $message;
+echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 
 </div>
 

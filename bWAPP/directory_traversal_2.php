@@ -23,62 +23,55 @@ include("admin/settings.php");
 
 $bugs = file("bugs.txt");
 
-if(isset($_POST["form_bug"]) && isset($_POST["bug"]))
-{
+if(isset($_POST["form_bug"]) && isset($_POST["bug"])) {
 
-            $key = $_POST["bug"];
-            $bug = explode(",", trim($bugs[$key]));
+    $key = $_POST["bug"];
+    $bug = explode(",", trim($bugs[$key]));
 
-            // Debugging
-            // print_r($bug);
+    // Debugging
+    // print_r($bug);
 
-            header("Location: " . $bug[1]);
+    header("Location: " . $bug[1]);
 
-            exit;
+    exit;
 
 }
 
-if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
-{
+if(isset($_POST["form_security_level"]) && isset($_POST["security_level"])) {
 
     $security_level_cookie = $_POST["security_level"];
 
-    switch($security_level_cookie)
-    {
+    switch($security_level_cookie) {
 
-        case "0" :
+        case "0":
 
             $security_level_cookie = "0";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level_cookie = "1";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level_cookie = "2";
             break;
 
-        default :
+        default:
 
             $security_level_cookie = "0";
             break;
 
     }
 
-    if($evil_bee == 1)
-    {
+    if($evil_bee == 1) {
 
-        setcookie("security_level", "666", time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", "666", time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
-    }
+    } else {
 
-    else
-    {
-
-        setcookie("security_level", $security_level_cookie, time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", $security_level_cookie, time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
     }
 
@@ -88,43 +81,38 @@ if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
 
 }
 
-if(isset($_COOKIE["security_level"]))
-{
+if(isset($_COOKIE["security_level"])) {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $security_level = "low";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level = "medium";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level = "high";
             break;
 
-        case "666" :
+        case "666":
 
             $security_level = "666";
             break;
 
-        default :
+        default:
 
             $security_level = "low";
             break;
 
     }
 
-}
-
-else
-{
+} else {
 
     $security_level = "not set";
 
@@ -137,16 +125,13 @@ function show_directory($directory)
 {
 
     // Checks whether a file or directory exists
-    if(file_exists($directory))
-    {
+    if(file_exists($directory)) {
 
         $dp = opendir($directory);
 
-        while($line = readdir($dp))
-        {
+        while($line = readdir($dp)) {
 
-            if($line != "." && $line != ".." && $line != ".htaccess")
-            {
+            if($line != "." && $line != ".." && $line != ".htaccess") {
 
                 echo "<a href=\"" . $directory . "/" . $line . "\" target=\"_blank\">" . $line . "</a><br />";
 
@@ -154,10 +139,7 @@ function show_directory($directory)
 
         }
 
-    }
-
-    else
-    {
+    } else {
 
         echo "This directory doesn't exist!";
 
@@ -208,7 +190,9 @@ function show_directory($directory)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -222,15 +206,13 @@ function show_directory($directory)
 
     <?php
 
-    if(isset($_GET["directory"]))
-    {
+    if(isset($_GET["directory"])) {
 
         $directory = $_GET["directory"];
 
-        switch($_COOKIE["security_level"])
-            {
+        switch($_COOKIE["security_level"]) {
 
-            case "0" :
+            case "0":
 
                 show_directory($directory);
 
@@ -238,19 +220,15 @@ function show_directory($directory)
 
                 break;
 
-            case "1" :
+            case "1":
 
                 $directory_traversal_error = directory_traversal_check_2($directory);
 
-                if(!$directory_traversal_error)
-                {
+                if(!$directory_traversal_error) {
 
                     show_directory($directory);
 
-                }
-
-                else
-                {
+                } else {
 
                     echo $directory_traversal_error;
 
@@ -258,19 +236,15 @@ function show_directory($directory)
 
                 break;
 
-            case "2" :
+            case "2":
 
                 $directory_traversal_error = directory_traversal_check_3($directory, $base_path = "./documents");
 
-                if(!$directory_traversal_error)
-                {
+                if(!$directory_traversal_error) {
 
                     show_directory($directory);
 
-                }
-
-                else
-                {
+                } else {
 
                     echo $directory_traversal_error;
 
@@ -278,7 +252,7 @@ function show_directory($directory)
 
                 break;
 
-            default :
+            default:
 
                 show_directory($directory);
 
@@ -288,7 +262,7 @@ function show_directory($directory)
 
     }
 
-    ?>
+?>
 
 
 </div>

@@ -23,8 +23,7 @@ include("config.inc.php");
 $link = mysqli_connect($server, $username, $password, $database);
 
 // Checks the connection
-if(!$link)
-{
+if(!$link) {
 
     // @mail($recipient, "Could not connect to server: ", mysqli_error());
 
@@ -39,12 +38,10 @@ if(!$link)
 //if(!$database)
 //{
 
-    // @mail($recipient, "Could not connect to database: ", mysqli_error());
+// @mail($recipient, "Could not connect to database: ", mysqli_error());
 
-    //die("Could not connect to the database: " . mysqli_error());
+//die("Could not connect to the database: " . mysqli_error());
 
 //}
 
 // mysqli_close($link);
-
-?>

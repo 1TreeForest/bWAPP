@@ -21,8 +21,7 @@ include("security_level_check.php");
 include("selections.php");
 include("functions_external.php");
 
-if(!(isset($_GET["ParamUrl"])) || !(isset($_GET["ParamHeight"])) || !(isset($_GET["ParamWidth"])))
-{
+if(!(isset($_GET["ParamUrl"])) || !(isset($_GET["ParamHeight"])) || !(isset($_GET["ParamWidth"]))) {
 
     header("Location: iframei.php?ParamUrl=robots.txt&ParamWidth=250&ParamHeight=250");
 
@@ -33,28 +32,27 @@ if(!(isset($_GET["ParamUrl"])) || !(isset($_GET["ParamHeight"])) || !(isset($_GE
 function xss($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
-            $data = no_check($data);      
+            $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             $data = xss_check_4($data);
             break;
 
-        case "2" :
+        case "2":
 
             $data = xss_check_3($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
-            break;   
+            break;
 
     }
 
@@ -105,7 +103,9 @@ function xss($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -119,19 +119,15 @@ function xss($data)
 
 <?php
 
-if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2") {
 
-?>
+    ?>
     <iframe frameborder="0" src="robots.txt" height="<?php echo xss($_GET["ParamHeight"])?>" width="<?php echo xss($_GET["ParamWidth"])?>"></iframe>
 <?php
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
     <iframe frameborder="0" src="<?php echo xss($_GET["ParamUrl"])?>" height="<?php echo xss($_GET["ParamHeight"])?>" width="<?php echo xss($_GET["ParamWidth"])?>"></iframe>
 <?php
 

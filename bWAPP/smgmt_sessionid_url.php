@@ -20,17 +20,15 @@ include("security.php");
 include("security_level_check.php");
 include("selections.php");
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
-        if(!(isset($_GET["PHPSESSID"])))
-        {
+        if(!(isset($_GET["PHPSESSID"]))) {
 
             $session_id = session_id();
 
-            header("Location: smgmt_sessionid_url.php?PHPSESSID=". $session_id );
+            header("Location: smgmt_sessionid_url.php?PHPSESSID=". $session_id);
 
             exit;
 
@@ -38,22 +36,21 @@ switch($_COOKIE["security_level"])
 
         break;
 
-    case "1" :
+    case "1":
 
         break;
 
-    case "2" :
+    case "2":
 
         break;
 
-    default :
+    default:
 
-        if(!(isset($_GET["PHPSESSID"])))
-        {
+        if(!(isset($_GET["PHPSESSID"]))) {
 
             $session_id = session_id();
 
-            header("Location: smgmt_sessionid_url.php?PHPSESSID=". $session_id );
+            header("Location: smgmt_sessionid_url.php?PHPSESSID=". $session_id);
 
             exit;
 
@@ -106,7 +103,9 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

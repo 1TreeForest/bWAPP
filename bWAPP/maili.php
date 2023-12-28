@@ -28,25 +28,19 @@ $subject = "bWAPP - Mail Header Injection (SMTP)";
 $message = "";
 // $debug = "false";
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
     // E-mail validation if the security level is MEDIUM or HIGH
-    if(!email_check_2($_POST["email"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2"))
-    {
+    if(!email_check_2($_POST["email"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")) {
 
         $message = "<font color=\"red\">Enter a valid e-mail address!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         // If the SMTP server is blank, then the default SMTP server is set (php.ini)
-        if($smtp_server != "")
-        {
+        if($smtp_server != "") {
 
-            ini_set( "SMTP", $smtp_server);
+            ini_set("SMTP", $smtp_server);
 
             //Debugging
             // $debug = "true";
@@ -54,18 +48,14 @@ if(isset($_POST["form"]))
         }
 
         // HIGH security level
-        if($_COOKIE["security_level"] == "2")
-        {
+        if($_COOKIE["security_level"] == "2") {
 
             $email = maili_check_2($_POST["email"]);
 
-            // Debugging
-            // $email = "foo@foo.com\r\nCc:bar@bar.com";
+        // Debugging
+        // $email = "foo@foo.com\r\nCc:bar@bar.com";
 
-        }
-
-        else
-        {
+        } else {
 
             $email = $_POST["email"];
 
@@ -85,19 +75,15 @@ if(isset($_POST["form"]))
         // Sends the e-mail
         $status = @mail($recipient, $subject, $content, "From: $email");
 
-        if($status != true)
-        {
+        if($status != true) {
 
             $message = "<font color=\"red\">An e-mail could not be sent...</font>";
 
-            // Debugging
-            // die("Error: mail was NOT send");
-            // echo "Mail was NOT send";
+        // Debugging
+        // die("Error: mail was NOT send");
+        // echo "Mail was NOT send";
 
-        }
-
-        else
-        {
+        } else {
 
             $message = "<font color=\"green\">Your message has been sent to our master bee!</font>";
 
@@ -155,7 +141,9 @@ if(isset($_POST["form"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -176,20 +164,17 @@ if(isset($_POST["form"]))
         <?php
 
         // If the security level is MEDIUM or HIGH, then show an 'input text' instead of a 'text area'
-        if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2")
-        {
+        if($_COOKIE["security_level"] == "1" or $_COOKIE["security_level"] == "2") {
 
-        ?>
+            ?>
 
         <p><label for="email">E-mail:</label><br />
         <input type="text" id="email" name="email"></p>
         <?php
 
-        }
-        else
-        {
+        } else {
 
-        ?>
+            ?>
 
         <p><label for="email">E-mail:</label><br />
         <textarea name="email"></textarea>
@@ -197,7 +182,7 @@ if(isset($_POST["form"]))
 
         }
 
-        ?>
+?>
         <p><label for="remarks">Remarks:</label><br />
         <textarea name="remarks" cols="50" rows="3" id="remarks"></textarea></p>
 

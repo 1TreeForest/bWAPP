@@ -24,23 +24,18 @@ include("selections.php");
 
 $message = "";
 
-if(isset($_GET["name"]) && isset($_GET["movie"]) && isset($_GET["action"]) && $_GET["action"]="vote")
-{
+if(isset($_GET["name"]) && isset($_GET["movie"]) && isset($_GET["action"]) && $_GET["action"] = "vote") {
 
     // Detects multiple params with the same name (HTTP Parameter Pollution)
-    $hpp_error="";
+    $hpp_error = "";
 
     $hpp_error = hpp_check_1(urldecode($_SERVER["QUERY_STRING"]));
 
-    if($hpp_error && $_COOKIE["security_level"] == 2)
-    {
+    if($hpp_error && $_COOKIE["security_level"] == 2) {
 
         $message = $hpp_error;
 
-    }
-
-    else
-    {
+    } else {
 
         $movie = $_REQUEST["movie"];
 
@@ -48,32 +43,26 @@ if(isset($_GET["name"]) && isset($_GET["movie"]) && isset($_GET["action"]) && $_
 
         $recordset = mysqli_query($link, $sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . mysqli_error());
 
         }
 
-        if(mysqli_num_rows($recordset) != 0)
-        {
+        if(mysqli_num_rows($recordset) != 0) {
 
-            while($row = mysqli_fetch_array($recordset))
-            {
+            while($row = mysqli_fetch_array($recordset)) {
 
                 // print_r($row);
 
                 $message = "<p>Your favorite movie is: <b>" . $row["title"] . "</b></p>";
-                $message.= "<p>Thank you for submitting your vote!</p>";
+                $message .= "<p>Thank you for submitting your vote!</p>";
 
             }
 
-        }
+        } else {
 
-        else
-        {
-
-             $message = "<font color=\"red\">Something went wrong...</font>";
+            $message = "<font color=\"red\">Something went wrong...</font>";
 
         }
 
@@ -81,10 +70,7 @@ if(isset($_GET["name"]) && isset($_GET["movie"]) && isset($_GET["action"]) && $_
 
     }
 
-}
-
-else
-{
+} else {
 
     header("Location: xss_href-1.php");
 
@@ -134,7 +120,9 @@ else
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

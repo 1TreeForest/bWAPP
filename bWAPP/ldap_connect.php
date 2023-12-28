@@ -23,62 +23,55 @@ include("admin/settings.php");
 
 $bugs = file("bugs.txt");
 
-if(isset($_POST["form_bug"]) && isset($_POST["bug"]))
-{
+if(isset($_POST["form_bug"]) && isset($_POST["bug"])) {
 
-            $key = $_POST["bug"];
-            $bug = explode(",", trim($bugs[$key]));
+    $key = $_POST["bug"];
+    $bug = explode(",", trim($bugs[$key]));
 
-            // Debugging
-            // print_r($bug);
+    // Debugging
+    // print_r($bug);
 
-            header("Location: " . $bug[1]);
+    header("Location: " . $bug[1]);
 
-            exit;
+    exit;
 
 }
 
-if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
-{
+if(isset($_POST["form_security_level"]) && isset($_POST["security_level"])) {
 
     $security_level_cookie = $_POST["security_level"];
 
-    switch($security_level_cookie)
-    {
+    switch($security_level_cookie) {
 
-        case "0" :
+        case "0":
 
             $security_level_cookie = "0";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level_cookie = "1";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level_cookie = "2";
             break;
 
-        default :
+        default:
 
             $security_level_cookie = "0";
             break;
 
     }
 
-    if($evil_bee == 1)
-    {
+    if($evil_bee == 1) {
 
-        setcookie("security_level", "666", time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", "666", time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
-    }
+    } else {
 
-    else
-    {
-
-        setcookie("security_level", $security_level_cookie, time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", $security_level_cookie, time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
     }
 
@@ -88,43 +81,38 @@ if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
 
 }
 
-if(isset($_COOKIE["security_level"]))
-{
+if(isset($_COOKIE["security_level"])) {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $security_level = "low";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level = "medium";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level = "high";
             break;
 
-        case "666" :
+        case "666":
 
             $security_level = "666";
             break;
 
-        default :
+        default:
 
             $security_level = "low";
             break;
 
     }
 
-}
-
-else
-{
+} else {
 
     $security_level = "not set";
 
@@ -136,8 +124,7 @@ $password = "";
 $server = "";
 $dn = "DC=bwapp,DC=local";
 
-if(isset($_REQUEST["clear"]))
-{
+if(isset($_REQUEST["clear"])) {
 
     // Clears the LDAP settings
     $_SESSION["ldap"] = array();
@@ -146,8 +133,7 @@ if(isset($_REQUEST["clear"]))
 
 }
 
-if(isset($_REQUEST["set"]) && isset($_REQUEST["login"]) && isset($_REQUEST["password"]) && isset($_REQUEST["server"]) && isset($_REQUEST["dn"]))
-{
+if(isset($_REQUEST["set"]) && isset($_REQUEST["login"]) && isset($_REQUEST["password"]) && isset($_REQUEST["server"]) && isset($_REQUEST["dn"])) {
 
     // LDAP connection settings
     $login = $_REQUEST["login"];
@@ -155,15 +141,11 @@ if(isset($_REQUEST["set"]) && isset($_REQUEST["login"]) && isset($_REQUEST["pass
     $server = $_REQUEST["server"];
     $dn = $_REQUEST["dn"];
 
-    if($login == "" || $password == "" || $server == "" || $dn == "")
-    {
+    if($login == "" || $password == "" || $server == "" || $dn == "") {
 
         $message = "<font color=\"red\">Please enter all fields!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         // Connects and binds to the LDAP server
         $ds = ldap_connect($server);
@@ -177,42 +159,32 @@ if(isset($_REQUEST["set"]) && isset($_REQUEST["login"]) && isset($_REQUEST["pass
         // Prints TRUE if the credentials are valid
         // print_r($r);
 
-        if(!$r)
-        {
+        if(!$r) {
 
             $message = "<font color=\"red\">Invalid credentials or invalid server!</font>";
 
-        }
-
-        else
-        {
+        } else {
 
             $filter = "(cn=*)";
 
             // Checks if the base DN has a valid syntax
-            if(!($search=@ldap_search($ds, $dn, $filter)))
-            {
+            if(!($search = @ldap_search($ds, $dn, $filter))) {
 
-               $message = "<font color=\"red\">Base DN invalid syntax!</font>";
+                $message = "<font color=\"red\">Base DN invalid syntax!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 // Checks if the base DN is valid
-                $number_returned = ldap_count_entries($ds,$search);
+                $number_returned = ldap_count_entries($ds, $search);
 
-                if($number_returned == 0)
-                {
+                if($number_returned == 0) {
 
                     $message = "<font color=\"red\">Base DN invalid!</font>";
 
                 }
 
                 // If the connection settings are valid
-                else
-                {
+                else {
 
                     $_SESSION["ldap"]["login"] = $login;
                     $_SESSION["ldap"]["password"] = $password;
@@ -291,7 +263,9 @@ function clear()
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -313,16 +287,16 @@ function clear()
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
 
         <p><label for="login">Login:</label><br />
-        <input type="text" id="login" name="login" value="<?php echo isset($_SESSION["ldap"]["login"])?$_SESSION["ldap"]["login"]:$login;?>" size="20" autocomplete="off"></p>
+        <input type="text" id="login" name="login" value="<?php echo isset($_SESSION["ldap"]["login"]) ? $_SESSION["ldap"]["login"] : $login;?>" size="20" autocomplete="off"></p>
 
         <p><label for="password">Password:</label><br />
-        <input type="password" id="password" name="password" value="<?php echo isset($_SESSION["ldap"]["password"])?"":$password;?>" size="20" autocomplete="off"></p>
+        <input type="password" id="password" name="password" value="<?php echo isset($_SESSION["ldap"]["password"]) ? "" : $password;?>" size="20" autocomplete="off"></p>
 
         <p><label for="server">Server:</label><br />
-        <input type="text" id="server" name="server" value="<?php echo isset($_SESSION["ldap"]["server"])?$_SESSION["ldap"]["server"]:$server;?>" size="20"></p>
+        <input type="text" id="server" name="server" value="<?php echo isset($_SESSION["ldap"]["server"]) ? $_SESSION["ldap"]["server"] : $server;?>" size="20"></p>
 
         <p><label for="dn">Base DN:</label><br />
-        <input type="text" id="dn" name="dn" value="<?php echo isset($_SESSION["ldap"]["dn"])?$_SESSION["ldap"]["dn"]:$dn;?>" size="20"></p>
+        <input type="text" id="dn" name="dn" value="<?php echo isset($_SESSION["ldap"]["dn"]) ? $_SESSION["ldap"]["dn"] : $dn;?>" size="20"></p>
 
         <button type="submit" name="set" value="submit" style="height:30px;width:60px">Set</button>
 

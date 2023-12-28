@@ -22,32 +22,23 @@ include("selections.php");
 
 $message = "";
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
-        if(isset($_GET["admin"]))
-        {
+        if(isset($_GET["admin"])) {
 
-            if($_GET["admin"] == "1")
-            {
+            if($_GET["admin"] == "1") {
 
                 $message = "Cowabunga...<p><font color=\"green\">You unlocked this page using an URL manipulation.</font></p>";
 
-            }
+            } else {
 
-            else
-            {
-
-                 $message="<font color=\"red\">This page is locked.</font><p>HINT: check the URL...</p>";
+                $message = "<font color=\"red\">This page is locked.</font><p>HINT: check the URL...</p>";
 
             }
 
-        }
-
-        else
-        {
+        } else {
 
             header("Location: " . $_SERVER["SCRIPT_NAME"] . "?admin=0");
 
@@ -57,32 +48,24 @@ switch($_COOKIE["security_level"])
 
         break;
 
-    case "1" :
+    case "1":
 
-        if((isset($_COOKIE["admin"])))
-        {
+        if((isset($_COOKIE["admin"]))) {
 
-            if($_COOKIE["admin"] == "1")
-            {
+            if($_COOKIE["admin"] == "1") {
 
-				$message = "Cowabunga...<p><font color=\"green\">You unlocked this page using a cookie manipulation.</font></p>";
+                $message = "Cowabunga...<p><font color=\"green\">You unlocked this page using a cookie manipulation.</font></p>";
 
-            }
+            } else {
 
-            else
-            {
-
-                $message="<font color=\"red\">This page is locked.</font><p>HINT: check the cookies...</p>";
+                $message = "<font color=\"red\">This page is locked.</font><p>HINT: check the cookies...</p>";
 
             }
 
-        }
-
-        else
-        {
+        } else {
 
             // Sets a cookie 'admin' when there is no cookie detected
-            setcookie("admin", "0", time()+300, "/", "", false, false);
+            setcookie("admin", "0", time() + 300, "/", "", false, false);
 
             header("Location: " . $_SERVER["SCRIPT_NAME"]);
 
@@ -92,50 +75,38 @@ switch($_COOKIE["security_level"])
 
         break;
 
-    case "2" :
+    case "2":
 
         // Debugging
         // print_r($_SESSION);
 
-        if(isset($_SESSION["admin"]) && $_SESSION["admin"] == 1)
-        {
+        if(isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
 
             $message = "Cowabunga...<p><font color=\"green\">You unlocked this page with a little help from the dba :)</font></p>";
 
-        }
+        } else {
 
-        else
-        {
-
-            $message="<font color=\"red\">This page is locked.</font><p>HINT: contact your dba...</p>";
+            $message = "<font color=\"red\">This page is locked.</font><p>HINT: contact your dba...</p>";
 
         }
 
         break;
 
-    default :
+    default:
 
-        if(isset($_GET["admin"]))
-        {
+        if(isset($_GET["admin"])) {
 
-            if($_GET["admin"] == "1")
-            {
+            if($_GET["admin"] == "1") {
 
                 $message = "Cowabunga...<p><font color=\"green\">You unlocked this page using an URL manipulation.</font></p>";
 
-            }
+            } else {
 
-            else
-            {
-
-                 $message="<font color=\"red\">This page is locked.</font><p>HINT: check the URL...</p>";
+                $message = "<font color=\"red\">This page is locked.</font><p>HINT: check the URL...</p>";
 
             }
 
-        }
-
-        else
-        {
+        } else {
 
             header("Location: " . $_SERVER["SCRIPT_NAME"] . "?admin=0");
 
@@ -190,7 +161,11 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);};}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                if(isset($_SESSION["login"])) {
+                    echo ucwords($_SESSION["login"]);
+                };
+            }?></font></td>
 
         </tr>
 

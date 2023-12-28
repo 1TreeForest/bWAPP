@@ -24,32 +24,26 @@ include("selections.php");
 $field_empty = false;
 $record_added = false;
 
-if(isset($_REQUEST["insert"]))
-{
+if(isset($_REQUEST["insert"])) {
 
     $username = $_REQUEST["username"];
     $password = $_REQUEST["password"];
 
-    if($username == "" or $password == "")
-    {
+    if($username == "" or $password == "") {
 
         $field_empty = true;
 
-    }
+    } else {
 
-    else
-    {
+        switch($_COOKIE["security_level"]) {
 
-        switch($_COOKIE["security_level"])
-        {
-
-            case "0" :
+            case "0":
 
                 $line = "'" . $username . "', '" . $password . "'" . "\r\n";
 
                 break;
 
-            case "1" :
+            case "1":
 
                 $username = xss_check_3($username);
                 $password = sha1($password, false);
@@ -58,7 +52,7 @@ if(isset($_REQUEST["insert"]))
 
                 break;
 
-            case "2" :
+            case "2":
 
                 $username = xss_check_3($username);
                 $salt = md5(uniqid());
@@ -70,7 +64,7 @@ if(isset($_REQUEST["insert"]))
 
                 break;
 
-            default :
+            default:
 
                 $line = "'" . $username . "', '" . $password . "'" . "\r\n";
 
@@ -89,11 +83,9 @@ if(isset($_REQUEST["insert"]))
 
 }
 
-if(isset($_REQUEST["delete"]))
-{
+if(isset($_REQUEST["delete"])) {
 
-    if(file_exists("passwords/accounts.txt"))
-    {
+    if(file_exists("passwords/accounts.txt")) {
 
         // Deletes the file
         $file = "passwords/accounts.txt";
@@ -147,7 +139,9 @@ if(isset($_REQUEST["delete"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -176,36 +170,26 @@ if(isset($_REQUEST["delete"]))
     <br />
     <?php
 
-    if($record_added == true)
-    {
+    if($record_added == true) {
 
         // echo "The account was added: " . $line . "<br /><br />";
         echo "<font color=\"green\">The account was added!</font><br /><br />";
 
-    }
+    } elseif($field_empty == true) {
 
-    else
-
-        if($field_empty == true)   
-        {
-
-    ?>
+        ?>
     <font color="red">Please enter both fields...</font><br /><br />
     <?php
 
-    }
-
-    else
-    {
+    } else {
 
         echo "<br /><br />";
 
     }
 
-    if(file_exists("passwords/accounts.txt"))
-    {
+    if(file_exists("passwords/accounts.txt")) {
 
-    ?>
+        ?>
 
     <a href="passwords/accounts.txt" target="_blank">Download</a> the file.<br />
 
@@ -213,16 +197,13 @@ if(isset($_REQUEST["delete"]))
 
     <?php
 
-    }
-
-    else
-    {
+    } else {
 
         echo "<br />";
 
     }
 
-    ?>
+?>
 
 
 </div>

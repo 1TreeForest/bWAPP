@@ -23,25 +23,23 @@ include("selections.php");
 
 $language = "";
 
-if(isset($_GET["language"]))
-{
+if(isset($_GET["language"])) {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $language = $_GET["language"];
 
             break;
 
-        case "1" :
+        case "1":
 
             $language = $_GET["language"] . ".php";
 
             break;
 
-        case "2" :
+        case "2":
 
             $available_languages = array("lang_en.php", "lang_fr.php", "lang_nl.php");
 
@@ -51,7 +49,7 @@ if(isset($_GET["language"]))
 
             break;
 
-        default :
+        default:
 
             $language = $_GET["language"];
 
@@ -104,7 +102,11 @@ if(isset($_GET["language"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);};}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                if(isset($_SESSION["login"])) {
+                    echo ucwords($_SESSION["login"]);
+                };
+            }?></font></td>
 
         </tr>
 
@@ -124,22 +126,18 @@ if(isset($_GET["language"]))
 
 <?php
 
-if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2") {
 
-?>
+    ?>
             <option value="lang_en">English</option>
             <option value="lang_fr">Français</option>
             <option value="lang_nl">Nederlands</option>
 
 <?php
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
             <option value="lang_en.php">English</option>
             <option value="lang_fr.php">Français</option>
             <option value="lang_nl.php">Nederlands</option>
@@ -158,18 +156,15 @@ else
     <br />
 <?php
 
-if(isset($_GET["language"]))
-{
+if(isset($_GET["language"])) {
 
-    if($_COOKIE["security_level"] == "2")
-    {
+    if($_COOKIE["security_level"] == "2") {
 
-         if(in_array($language, $available_languages)) include($language);
+        if(in_array($language, $available_languages)) {
+            include($language);
+        }
 
-    }
-
-    else
-    {
+    } else {
 
         include($language);
 

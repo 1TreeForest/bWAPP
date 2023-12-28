@@ -39,56 +39,53 @@ print_r($_COOKIE);
 $message = "";
 
 // Deletes the cookie
-setcookie("top_security", "", time()-3600, "/", "", false, false);
+setcookie("top_security", "", time() - 3600, "/", "", false, false);
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
         $message = "<p>Click <a href=\"top_security.php\" target=\_blank\>here</a> to access our top security page.</p>";
 
         // Deletes the cookies
-        setcookie("top_security_nossl", "", time()-3600, "/", "", false, false);
-        setcookie("top_security_ssl", "", time()-3600, "/", "", false, false);
+        setcookie("top_security_nossl", "", time() - 3600, "/", "", false, false);
+        setcookie("top_security_ssl", "", time() - 3600, "/", "", false, false);
 
         break;
 
-    case "1" :
+    case "1":
 
         $message = "<p>Click <a href=\"top_security.php\" target=\_blank\>here</a> to access our top security page.</p>";
 
         // Deletes the cookie
-        setcookie("top_security_ssl", "", time()-3600, "/", "", false, false);
+        setcookie("top_security_ssl", "", time() - 3600, "/", "", false, false);
 
-        if(!isset($_POST["form"]))
-        {
+        if(!isset($_POST["form"])) {
 
             // Generates a non-SSL secured cookie
             // Generates a random token
-            $token = uniqid(mt_rand(0,100000));
+            $token = uniqid(mt_rand(0, 100000));
             $token = hash("sha256", $token);
 
             $_SESSION["top_security_nossl"] = $token;
 
             // The cookie will be available within the entire domain
             // Sets the Http Only flag
-            setcookie("top_security_nossl", $token, time()+3600, "/", "", false, true);
+            setcookie("top_security_nossl", $token, time() + 3600, "/", "", false, true);
 
         }
 
         break;
 
-    case "2" :
+    case "2":
 
         $message = "<p>This page must be accessed over a SSL channel to fully function!<br />";
-        $message.= "Click <a href=\"top_security.php\" target=\_blank\>here</a> to access our top security page.</p>";
+        $message .= "Click <a href=\"top_security.php\" target=\_blank\>here</a> to access our top security page.</p>";
 
         // Deletes the cookie
-        setcookie("top_security_nossl", "", time()-3600, "/", "", false, false);
+        setcookie("top_security_nossl", "", time() - 3600, "/", "", false, false);
 
-        if(!isset($_POST["form"]))
-        {
+        if(!isset($_POST["form"])) {
 
             // Generates a non-SSL secured cookie
             // Generates a random token
@@ -103,26 +100,26 @@ switch($_COOKIE["security_level"])
 
             // Generates a SSL secured cookie
             // Generates a random token
-            $token = uniqid(mt_rand(0,100000));
+            $token = uniqid(mt_rand(0, 100000));
             $token = hash("sha256", $token);
 
             $_SESSION["top_security_ssl"] = $token;
 
             // The cookie will be available within the entire domain
             // Sets the Http Only flag and the Secure flag
-            setcookie("top_security_ssl", $token, time()+3600, "/", "", true, true);
+            setcookie("top_security_ssl", $token, time() + 3600, "/", "", true, true);
 
         }
 
         break;
 
-    default :
+    default:
 
         $message = "<p>Click <a href=\"top_security.php\" target=\_blank\>here</a> to access our top security page.</p>";
 
         // Deletes the cookies
-        setcookie("top_security_nossl", "", time()-3600, "/", "", false, false);
-        setcookie("top_security_ssl", "", time()-3600, "/", "", false, false);
+        setcookie("top_security_nossl", "", time() - 3600, "/", "", false, false);
+        setcookie("top_security_ssl", "", time() - 3600, "/", "", false, false);
 
         break;
 
@@ -171,7 +168,9 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -207,13 +206,11 @@ switch($_COOKIE["security_level"])
         </tr>
 <?php
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
-    foreach ($_COOKIE as $key => $cookie)
-    {
+    foreach ($_COOKIE as $key => $cookie) {
 
-?>
+        ?>
 
         <tr height="30">
 

@@ -21,50 +21,47 @@ include("security_level_check.php");
 include("functions_external.php");
 include("selections.php");
 
-if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2"))
-{
+if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")) {
 
     // Destroys the session and the cookie 'admin'
-    if($_COOKIE["security_level"] == "2")
-    {
+    if($_COOKIE["security_level"] == "2") {
 
         // Destroys the session
         $_SESSION = array();
         session_destroy();
 
         // Deletes the cookies
-        setcookie("admin", "", time()-3600, "/", "", false, false);
-        setcookie("movie_genre", "", time()-3600, "/", "", false, false);
-        setcookie("secret", "", time()-3600, "/", "", false, false);
-        setcookie("top_security", "", time()-3600, "/", "", false, false);
-        setcookie("top_security_nossl", "", time()-3600, "/", "", false, false);
-        setcookie("top_security_ssl", "", time()-3600, "/", "", false, false);
+        setcookie("admin", "", time() - 3600, "/", "", false, false);
+        setcookie("movie_genre", "", time() - 3600, "/", "", false, false);
+        setcookie("secret", "", time() - 3600, "/", "", false, false);
+        setcookie("top_security", "", time() - 3600, "/", "", false, false);
+        setcookie("top_security_nossl", "", time() - 3600, "/", "", false, false);
+        setcookie("top_security_ssl", "", time() - 3600, "/", "", false, false);
 
     }
 
-    switch($_REQUEST["url"])
-    {
-        case "1" :
+    switch($_REQUEST["url"]) {
+        case "1":
 
             header("Location: http://itsecgames.blogspot.com");
             break;
 
-        case "2" :
+        case "2":
 
             header("Location: http://www.linkedin.com/in/malikmesellem");
             break;
 
-        case "3" :
+        case "3":
 
             header("Location: http://twitter.com/MME_IT");
             break;
 
-        case "4" :
+        case "4":
 
             header("Location: http://www.mmeit.be/en");
             break;
 
-        default :
+        default:
 
             header("Location: login.php");
             break;
@@ -73,8 +70,7 @@ if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["se
 
 }
 
-if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2"))
-{
+if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")) {
 
     // Debugging
     // echo $_REQUEST["url"];
@@ -128,7 +124,9 @@ if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] != "1" && $_COOKIE["se
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -140,16 +138,17 @@ if(isset($_REQUEST["url"]) && ($_COOKIE["security_level"] != "1" && $_COOKIE["se
 
     <h1>Unvalidated Redirects & Forwards (1)</h1>
 
-    <p>Beam me up <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);} ?>...</p>
+    <p>Beam me up <?php if(isset($_SESSION["login"])) {
+        echo ucwords($_SESSION["login"]);
+    } ?>...</p>
 
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="GET">
 
 <?php
 
-if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")
-{
+if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2") {
 
-?>
+    ?>
         <select name="url">
 
             <option value="1">Blog</option>
@@ -160,12 +159,9 @@ if($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")
         </select>
 <?php
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
         <select name="url">
 
             <option value="http://itsecgames.blogspot.com">Blog</option>

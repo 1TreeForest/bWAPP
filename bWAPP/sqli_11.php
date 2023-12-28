@@ -27,15 +27,14 @@ include("functions_external.php");
 function sqli($data)
 {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $data = no_check($data);
             break;
 
-        case "1" :
+        case "1":
 
             // Not working with PDO
             // $data = sqlite_escape_string($data);
@@ -43,7 +42,7 @@ function sqli($data)
             $data = sqli_check_4($data);
             break;
 
-        case "2" :
+        case "2":
 
             // Not working with PDO
             // $data = sqlite_escape_string($data);
@@ -51,7 +50,7 @@ function sqli($data)
             $data = sqli_check_4($data);
             break;
 
-        default :
+        default:
 
             $data = no_check($data);
             break;
@@ -105,7 +104,9 @@ function sqli($data)
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -143,8 +144,7 @@ function sqli($data)
         </tr>
 <?php
 
-if(isset($_GET["title"]))
-{
+if(isset($_GET["title"])) {
 
     $title = $_GET["title"];
 
@@ -154,10 +154,9 @@ if(isset($_GET["title"]))
 
     $recordset = $db->query($sql);
 
-    if(!$recordset)
-    {
+    if(!$recordset) {
 
-?>
+        ?>
 
         <tr height="50">
 
@@ -170,12 +169,11 @@ if(isset($_GET["title"]))
 
     $count = 0;
 
-    foreach($recordset as $row)
-    {
+    foreach($recordset as $row) {
 
-	$count++;
+        $count++;
 
-?>
+        ?>
 
         <tr height="30">
 
@@ -190,10 +188,9 @@ if(isset($_GET["title"]))
 
     }
 
-    if ($count == 0)
-    {
+    if ($count == 0) {
 
-?>
+        ?>
 
         <tr height="30">
 
@@ -206,12 +203,9 @@ if(isset($_GET["title"]))
 
     $db = null;
 
-}
+} else {
 
-else
-{
-
-?>
+    ?>
 
         <tr height="30">
 

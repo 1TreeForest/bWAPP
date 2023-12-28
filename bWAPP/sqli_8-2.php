@@ -24,10 +24,9 @@ $message = "";
 $body = file_get_contents("php://input");
 
 // If the security level is not MEDIUM or HIGH
-if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-{
+if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-    ini_set("display_errors",1);
+    ini_set("display_errors", 1);
 
     $xml = simplexml_load_string($body);
 
@@ -37,18 +36,16 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
     $login = $xml->login;
     $secret = $xml->secret;
 
-    if($login && $login != "" && $secret)
-    {
+    if($login && $login != "" && $secret) {
 
         $sql = "UPDATE users SET secret = '" . $secret . "' WHERE login = '" . $login . "'";
 
         // Debugging
-        // echo $sql;      
+        // echo $sql;
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Connect Error: " . $link->error);
 
@@ -56,10 +53,7 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
 
         $message = $login . "'s secret has been reset!";
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "An error occured!";
 
@@ -68,33 +62,30 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
 }
 
 // If the security level is MEDIUM or HIGH
-else
-{
+else {
 
     // Disables XML external entities. Doesn't work with older PHP versions!
     // libxml_disable_entity_loader(true);
     $xml = simplexml_load_string($body);
-    
+
     // Debugging
     // print_r($xml);
 
     $login = $_SESSION["login"];
     $secret = $xml->secret;
 
-    if($secret)
-    {
+    if($secret) {
 
         $secret = mysqli_real_escape_string($link, $secret);
 
         $sql = "UPDATE users SET secret = '" . $secret . "' WHERE login = '" . $login . "'";
 
         // Debugging
-        // echo $sql;      
+        // echo $sql;
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Connect Error: " . $link->error);
 
@@ -102,12 +93,9 @@ else
 
         $message = $login . "'s secret has been reset!";
 
-    }
+    } else {
 
-    else
-    {
-
-        $message = "An error occured!"; 
+        $message = "An error occured!";
 
     }
 
@@ -116,5 +104,3 @@ else
 echo $message;
 
 $link->close();
-
-?>

@@ -23,8 +23,7 @@ session_start();
 
 $message = "";
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
     $login = $_POST["login"];
     $login = mysqli_real_escape_string($link, $login);
@@ -34,36 +33,31 @@ if(isset($_POST["form"]))
     $password = hash("sha1", $password, false);
 
     $sql = "SELECT * FROM users WHERE login = '" . $login;
-    $sql.= "' AND BINARY password = '" . $password . "'";
+    $sql .= "' AND BINARY password = '" . $password . "'";
     // Checks if the user is activated
-    $sql.= " AND activated = 1";
+    $sql .= " AND activated = 1";
 
     // Debugging
     // echo $sql;
 
     $recordset = $link->query($sql);
 
-    if(!$recordset)
-    {
+    if(!$recordset) {
 
         die("Error: " . $link->error);
 
-    }
-
-    else
-    {
+    } else {
 
         $row = $recordset->fetch_object();
 
         // Debugging
         // print_r($row);
 
-        if($row)
-        {
+        if($row) {
 
             session_regenerate_id(true);
 
-            $token = sha1(uniqid(mt_rand(0,100000)));
+            $token = sha1(uniqid(mt_rand(0, 100000)));
 
             $_SESSION["login"] = $row->login;
             $_SESSION["admin"] = $row->admin;
@@ -72,42 +66,37 @@ if(isset($_POST["form"]))
 
             $security_level_cookie = $_POST["security_level"];
 
-            switch($security_level_cookie)
-            {
+            switch($security_level_cookie) {
 
-                case "0" :
+                case "0":
 
                     $security_level_cookie = "0";
                     break;
 
-                case "1" :
+                case "1":
 
                     $security_level_cookie = "1";
                     break;
 
-                case "2" :
+                case "2":
 
                     $security_level_cookie = "2";
                     break;
 
-                default :
+                default:
 
                     $security_level_cookie = "0";
                     break;
 
             }
 
-            if($evil_bee == 1)
-            {
+            if($evil_bee == 1) {
 
-                setcookie("security_level", "666", time()+60*60*24*365, "/", "", false, false);
+                setcookie("security_level", "666", time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
-            }
+            } else {
 
-            else
-            {
-
-                setcookie("security_level", $security_level_cookie, time()+60*60*24*365, "/", "", false, false);
+                setcookie("security_level", $security_level_cookie, time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
             }
 
@@ -115,12 +104,9 @@ if(isset($_POST["form"]))
 
             exit;
 
-        }
+        } else {
 
-        else
-        {
-
-        $message = "<font color=\"red\">Invalid credentials or user not activated!</font>";
+            $message = "<font color=\"red\">Invalid credentials or user not activated!</font>";
 
         }
 
@@ -210,9 +196,9 @@ if(isset($_POST["form"]))
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 
 </div>
 

@@ -21,8 +21,7 @@ include("security_level_check.php");
 include("functions_external.php");
 include("selections.php");
 
-if(isset($_REQUEST["ReturnUrl"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2"))
-{
+if(isset($_REQUEST["ReturnUrl"]) && ($_COOKIE["security_level"] == "1" || $_COOKIE["security_level"] == "2")) {
 
     header("Location: portal.php");
 
@@ -30,8 +29,7 @@ if(isset($_REQUEST["ReturnUrl"]) && ($_COOKIE["security_level"] == "1" || $_COOK
 
 }
 
-if(isset($_REQUEST["ReturnUrl"]) && ($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2"))
-{
+if(isset($_REQUEST["ReturnUrl"]) && ($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")) {
 
     // Debugging
     // echo $_REQUEST["url"];
@@ -85,7 +83,9 @@ if(isset($_REQUEST["ReturnUrl"]) && ($_COOKIE["security_level"] != "1" && $_COOK
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

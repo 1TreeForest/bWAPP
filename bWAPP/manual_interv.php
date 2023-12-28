@@ -26,22 +26,17 @@ $message = "";
 // Debugging
 // echo print_r($_SESSION);
 
-if(isset($_POST["form"]) && isset($_SESSION["captcha"]))
-{
+if(isset($_POST["form"]) && isset($_SESSION["captcha"])) {
 
-    if($_POST["captcha_user"] == $_SESSION["captcha"])
-    {
+    if($_POST["captcha_user"] == $_SESSION["captcha"]) {
 
         $_SESSION["manual_interv"] = 1;
-        
+
         header("Location: sqli_9.php");
-        
+
         exit;
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">Incorrect CAPTCHA!</font>";
 
@@ -92,7 +87,9 @@ if(isset($_POST["form"]) && isset($_SESSION["captcha"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 

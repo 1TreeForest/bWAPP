@@ -39,50 +39,50 @@ print_r($_COOKIE);
 $message = "";
 
 // Deletes the cookies
-setcookie("top_security_nossl", "", time()-3600, "/", "", false, false);
-setcookie("top_security_ssl", "", time()-3600, "/", "", false, false);
+setcookie("top_security_nossl", "", time() - 3600, "/", "", false, false);
+setcookie("top_security_ssl", "", time() - 3600, "/", "", false, false);
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
-        $message.= "<p>Browse to another page to see if the cookies are protected over a non-SSL channel.</p>";
+        $message .= "<p>Browse to another page to see if the cookies are protected over a non-SSL channel.</p>";
 
         // The cookie will be available within the entire domain
         // Sets the Http Only flag
-        setcookie("top_security", "no", time()+3600, "/", "", false, true);
+        setcookie("top_security", "no", time() + 3600, "/", "", false, true);
         break;
 
-    case "1" :
+    case "1":
 
         $message = "<p>This page must be accessed over a SSL channel to fully function!<br />";
-        $message.= "Browse to another page to see if the cookies are protected over a non-SSL channel.</p>";
+        $message .= "Browse to another page to see if the cookies are protected over a non-SSL channel.</p>";
 
         // The cookie will be available within the entire domain
         // Sets the Http Only flag and the Secure flag
-        setcookie("top_security", "maybe", time()+3600, "/", "", true, true);
+        setcookie("top_security", "maybe", time() + 3600, "/", "", true, true);
         break;
 
-    case "2" :
+    case "2":
 
         $message = "<p>This page must be accessed over a SSL channel to fully function!<br />";
-        $message.= "Browse to another page to see if the cookies are protected over a non-SSL channel.</p>";
+        $message .= "Browse to another page to see if the cookies are protected over a non-SSL channel.</p>";
 
         // The cookie will be available within the entire domain
         // The cookie expires at end of the session
         // Sets the Http Only flag and the Secure flag
-        setcookie("top_security", "yes", time()+300, "/", "", true, true);
+        setcookie("top_security", "yes", time() + 300, "/", "", true, true);
         break;
 
-    default :
+    default:
 
-        $message.= "<p>Browse to another page to see if the cookies are protected over a non-SSL channel</p>";
+        $message .= "<p>Browse to another page to see if the cookies are protected over a non-SSL channel</p>";
 
         // The cookie will be available within the entire domain
         // Sets the Http Only flag
-        setcookie("top_security", "no", time()+3600, "/", "", false, true);
-        break;;
+        setcookie("top_security", "no", time() + 3600, "/", "", false, true);
+        break;
+        ;
 
 }
 
@@ -129,7 +129,9 @@ switch($_COOKIE["security_level"])
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -165,13 +167,11 @@ switch($_COOKIE["security_level"])
         </tr>
 <?php
 
-if(isset($_POST["form"]))
-{
+if(isset($_POST["form"])) {
 
-    foreach($_COOKIE as $key => $cookie)
-    {
+    foreach($_COOKIE as $key => $cookie) {
 
-?>
+        ?>
 
         <tr height="30">
 

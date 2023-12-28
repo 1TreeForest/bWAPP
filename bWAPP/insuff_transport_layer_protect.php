@@ -22,52 +22,46 @@ include("selections.php");
 
 $message = "";
 
-switch($_COOKIE["security_level"])
-{
+switch($_COOKIE["security_level"]) {
 
-    case "0" :
+    case "0":
 
-        $url = $_SERVER["SCRIPT_NAME"];        
+        $url = $_SERVER["SCRIPT_NAME"];
         break;
 
-    case "1" :
+    case "1":
 
         $message = "A certificate must be configured to fully function!";
-        $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];        
+        $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
         break;
 
-    case "2" :           
+    case "2":
 
         $message = "A certificate must be configured to fully function!";
-        $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];        
+        $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"];
         break;
 
-    default :
+    default:
 
         $url = $_SERVER["SCRIPT_NAME"];
         break;
 
 }
 
-if(isset($_POST["form"]))   
-{ 
-        
-    if($_POST["login"] == $login && $_POST["password"] == $password)
-    {
-        
+if(isset($_POST["form"])) {
+
+    if($_POST["login"] == $login && $_POST["password"] == $password) {
+
         $message = "<font color=\"green\">Successful login!</font>";
-        
-    }
-    
-    else        
-    {
+
+    } else {
 
         $message = "<font color=\"red\">Invalid credentials!</font>";
 
     }
-    
+
 }
-    
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -111,7 +105,9 @@ if(isset($_POST["form"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
             
         </tr>
         
@@ -165,7 +161,7 @@ if(isset($_POST["form"]))
     
 <div id="security_level">
   
-    <form action="<?php echo ($_SERVER["SCRIPT_NAME"]);?>" method="POST">
+    <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
         
         <label>Set your security level:</label><br />
         

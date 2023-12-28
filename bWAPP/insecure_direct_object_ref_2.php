@@ -66,7 +66,11 @@ $ticket_price = 15;
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);};}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                if(isset($_SESSION["login"])) {
+                    echo ucwords($_SESSION["login"]);
+                };
+            }?></font></td>
 
         </tr>
 
@@ -86,10 +90,9 @@ $ticket_price = 15;
 
 <?php
 
-if($_COOKIE["security_level"] != "1" and $_COOKIE["security_level"] != "2")
-{
+if($_COOKIE["security_level"] != "1" and $_COOKIE["security_level"] != "2") {
 
-?>
+    ?>
         <input type="hidden" name="ticket_price" value="<?php echo $ticket_price ?>">
 
 <?php
@@ -105,14 +108,11 @@ if($_COOKIE["security_level"] != "1" and $_COOKIE["security_level"] != "2")
 
 <?php
 
-if(isset($_REQUEST["ticket_quantity"]))
-{
+if(isset($_REQUEST["ticket_quantity"])) {
 
-    if($_COOKIE["security_level"] != "2")
-    {
+    if($_COOKIE["security_level"] != "2") {
 
-        if(isset($_REQUEST["ticket_price"]))
-        {
+        if(isset($_REQUEST["ticket_price"])) {
 
             $ticket_price = $_REQUEST["ticket_price"];
 

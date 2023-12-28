@@ -23,8 +23,7 @@ include("connect_i.php");
 
 $message = "";
 
-if(isset($_POST["action"]))
-{
+if(isset($_POST["action"])) {
 
     $email = $_POST["email"];
     $email = mysqli_real_escape_string($link, $email);
@@ -39,8 +38,7 @@ if(isset($_POST["action"]))
 
     $recordset = $link->query($sql);
 
-    if(!$recordset)
-    {
+    if(!$recordset) {
 
         die("Error: " . $link->error);
 
@@ -52,8 +50,7 @@ if(isset($_POST["action"]))
 
     $row = $recordset->fetch_object();
 
-    if($row)
-    {
+    if($row) {
 
         // Debugging
         // echo "<br />Row: ";
@@ -70,8 +67,7 @@ if(isset($_POST["action"]))
 
         $recordset = $link->query($sql);
 
-        if(!$recordset)
-        {
+        if(!$recordset) {
 
             die("Error: " . $link->error);
 
@@ -83,10 +79,7 @@ if(isset($_POST["action"]))
 
         $message = "<font color=\"green\">Your secret has been changed!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">Your secret has not been changed!</font>";
 
@@ -137,7 +130,9 @@ if(isset($_POST["action"]))
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -156,9 +151,13 @@ if(isset($_POST["action"]))
         <p><label for="secret">New secret:</label><br />
         <input type="text" id="secret" name="secret"></p>
 
-        <input type="hidden" id="email" name="email" value="<?php if(isset($_GET["email"])){echo htmlspecialchars($_GET["email"],ENT_QUOTES,'UTF-8');} ?>" />
+        <input type="hidden" id="email" name="email" value="<?php if(isset($_GET["email"])) {
+            echo htmlspecialchars($_GET["email"], ENT_QUOTES, 'UTF-8');
+        } ?>" />
 
-        <input type="hidden" id="reset_code" name="reset_code" value="<?php if(isset($_GET["reset_code"])){echo htmlspecialchars($_GET["reset_code"],ENT_QUOTES,'UTF-8');} ?>" />
+        <input type="hidden" id="reset_code" name="reset_code" value="<?php if(isset($_GET["reset_code"])) {
+            echo htmlspecialchars($_GET["reset_code"], ENT_QUOTES, 'UTF-8');
+        } ?>" />
 
         <button type="submit" name="action" value="change">Change</button>
 
@@ -169,9 +168,9 @@ if(isset($_POST["action"]))
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 </div>
 
 <div id="side">

@@ -24,34 +24,24 @@ include("selections.php");
 $message = "";
 
 // If the security level is not MEDIUM or HIGH
-if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
-{
+if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2") {
 
-    if(isset($_REQUEST["password_new"]) && isset($_REQUEST["password_conf"]))
-    {
+    if(isset($_REQUEST["password_new"]) && isset($_REQUEST["password_conf"])) {
 
         $password_new = $_REQUEST["password_new"];
         $password_conf = $_REQUEST["password_conf"];
 
-        if($password_new == "")
-        {
+        if($password_new == "") {
 
             $message = "<font color=\"red\">Please enter a new password...</font>";
 
-        }
+        } else {
 
-        else
-        {
-
-            if($password_new != $password_conf)
-            {
+            if($password_new != $password_conf) {
 
                 $message = "<font color=\"red\">The passwords don't match!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $login = $_SESSION["login"];
 
@@ -62,8 +52,7 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
 
                 $recordset = $link->query($sql);
 
-                if(!$recordset)
-                {
+                if(!$recordset) {
 
                     die("Error: " . $link->error);
 
@@ -71,15 +60,13 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
 
                 $row = $recordset->fetch_object();
 
-                if($row)
-                {
+                if($row) {
 
                     $sql = "UPDATE users SET password = '" . $password_new . "' WHERE login = '" . $login . "'";
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Error: " . $link->error);
 
@@ -87,10 +74,7 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
 
                     $message = "<font color=\"green\">The password has been changed!</font>";
 
-                }
-
-                else
-                {
+                } else {
 
                     $message = "<font color=\"red\">The password has not been changed!</font>";
 
@@ -105,34 +89,24 @@ if($_COOKIE["security_level"] != "1" && $_COOKIE["security_level"] != "2")
 }
 
 // If the security level is MEDIUM or HIGH
-else
-{
+else {
 
-    if(isset($_POST["password_new"]) && isset($_POST["password_conf"]))
-    {
+    if(isset($_POST["password_new"]) && isset($_POST["password_conf"])) {
 
         $password_new = $_POST["password_new"];
         $password_conf = $_POST["password_conf"];
 
-        if($password_new == "")
-        {
+        if($password_new == "") {
 
             $message = "<font color=\"red\">Please enter a new password...</font>";
 
-        }
+        } else {
 
-        else
-        {
-
-            if($password_new != $password_conf)
-            {
+            if($password_new != $password_conf) {
 
                 $message = "<font color=\"red\">The passwords don't match!</font>";
 
-            }
-
-            else
-            {
+            } else {
 
                 $login = $_SESSION["login"];
 
@@ -143,8 +117,7 @@ else
 
                 $recordset = $link->query($sql);
 
-                if(!$recordset)
-                {
+                if(!$recordset) {
 
                     die("Error: " . $link->error);
 
@@ -152,15 +125,13 @@ else
 
                 $row = $recordset->fetch_object();
 
-                if($row)
-                {
+                if($row) {
 
                     $sql = "UPDATE users SET password = '" . $password_new . "' WHERE login = '" . $login . "'";
 
                     $recordset = $link->query($sql);
 
-                    if(!$recordset)
-                    {
+                    if(!$recordset) {
 
                         die("Error: " . $link->error);
 
@@ -168,10 +139,7 @@ else
 
                     $message = "<font color=\"green\">The password has been changed!</font>";
 
-                }
-
-                else
-                {
+                } else {
 
                     $message = "<font color=\"red\">The password has not been changed!</font>";
 
@@ -228,7 +196,9 @@ else
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
@@ -240,7 +210,9 @@ else
 
     <h1>HTTP Verb Tampering</h1>
 
-    <p>Please change your password <b><?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);} ?></b>.</p>
+    <p>Please change your password <b><?php if(isset($_SESSION["login"])) {
+        echo ucwords($_SESSION["login"]);
+    } ?></b>.</p>
 
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
 
@@ -259,9 +231,9 @@ else
 
     echo $message;
 
-    $link->close();
+$link->close();
 
-    ?>
+?>
 </div>
 
 <div id="side">

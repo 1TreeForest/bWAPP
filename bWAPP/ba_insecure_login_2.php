@@ -22,62 +22,55 @@ include("admin/settings.php");
 
 $bugs = file("bugs.txt");
 
-if(isset($_POST["form_bug"]) && isset($_POST["bug"]))
-{
+if(isset($_POST["form_bug"]) && isset($_POST["bug"])) {
 
-            $key = $_POST["bug"];
-            $bug = explode(",", trim($bugs[$key]));
+    $key = $_POST["bug"];
+    $bug = explode(",", trim($bugs[$key]));
 
-            // Debugging
-            // print_r($bug);
+    // Debugging
+    // print_r($bug);
 
-            header("Location: " . $bug[1]);
+    header("Location: " . $bug[1]);
 
-            exit;
+    exit;
 
 }
 
-if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
-{
+if(isset($_POST["form_security_level"]) && isset($_POST["security_level"])) {
 
     $security_level_cookie = $_POST["security_level"];
 
-    switch($security_level_cookie)
-    {
+    switch($security_level_cookie) {
 
-        case "0" :
+        case "0":
 
             $security_level_cookie = "0";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level_cookie = "1";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level_cookie = "2";
             break;
 
-        default :
+        default:
 
             $security_level_cookie = "0";
             break;
 
     }
 
-    if($evil_bee == 1)
-    {
+    if($evil_bee == 1) {
 
-        setcookie("security_level", "666", time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", "666", time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
-    }
+    } else {
 
-    else
-    {
-
-        setcookie("security_level", $security_level_cookie, time()+60*60*24*365, "/", "", false, false);
+        setcookie("security_level", $security_level_cookie, time() + 60 * 60 * 24 * 365, "/", "", false, false);
 
     }
 
@@ -87,43 +80,38 @@ if(isset($_POST["form_security_level"]) && isset($_POST["security_level"]))
 
 }
 
-if(isset($_COOKIE["security_level"]))
-{
+if(isset($_COOKIE["security_level"])) {
 
-    switch($_COOKIE["security_level"])
-    {
+    switch($_COOKIE["security_level"]) {
 
-        case "0" :
+        case "0":
 
             $security_level = "low";
             break;
 
-        case "1" :
+        case "1":
 
             $security_level = "medium";
             break;
 
-        case "2" :
+        case "2":
 
             $security_level = "high";
             break;
 
-        case "666" :
+        case "666":
 
             $security_level = "666";
             break;
 
-        default :
+        default:
 
             $security_level = "low";
             break;
 
     }
 
-}
-
-else
-{
+} else {
 
     $security_level = "not set";
 
@@ -134,18 +122,13 @@ $message = "";
 // Debugging
 // print_r($_REQUEST);
 
-if(isset($_REQUEST["secret"]))
-{
+if(isset($_REQUEST["secret"])) {
 
-    if($_REQUEST["secret"] == "hulk smash!")
-    {
+    if($_REQUEST["secret"] == "hulk smash!") {
 
         $message = "<font color=\"green\">The secret was unlocked: HULK SMASH!</font>";
 
-    }
-
-    else
-    {
+    } else {
 
         $message = "<font color=\"red\">Still locked... Don't lose your temper Bruce!</font>";
 
@@ -242,7 +225,9 @@ function unlock_secret()
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
             <td><a href="logout.php" onclick="return confirm('Are you sure you want to leave?');">Logout</a></td>
-            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])){echo ucwords($_SESSION["login"]);}?></font></td>
+            <td><font color="red">Welcome <?php if(isset($_SESSION["login"])) {
+                echo ucwords($_SESSION["login"]);
+            }?></font></td>
 
         </tr>
 
